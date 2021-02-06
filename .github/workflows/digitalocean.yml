@@ -47,9 +47,9 @@ jobs:
       with:
         args: --acl public-read --follow-symlinks --delete
       env:
-        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        AWS_S3_BUCKET: ${{ secrets.STAGING_AWS_S3_BUCKET }}
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: sfo3
+        AWS_REGION: ${{ secrets.STAGING_AWS_REGION }}
         SOURCE_DIR: website/
-        AWS_S3_ENDPOINT: https://sfo3.digitaloceanspaces.com
+        AWS_S3_ENDPOINT: ${{ secrets.STAGING_AWS_S3_BUCKET }}
