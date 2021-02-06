@@ -31,6 +31,9 @@ jobs:
     - name: Install pipenv packages
       run: pipenv install
 
+    - name: Generate data set
+      run: pipenv run python generator.py
+
     - name: Build the file
       run: pipenv run python build.py build
 
