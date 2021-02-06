@@ -7,6 +7,8 @@ import watchgod
 import argparse
 import hashlib
 import shortuuid
+import datetime
+import json
 
 from pathlib import Path
 
@@ -83,6 +85,7 @@ def build():
     build_index(prefix)
     copy_data("dist")
     copy_static_assets()
+    generate_version_references(prefix)
 
 
 def build_index(prefix):
@@ -117,6 +120,22 @@ def copy_file(source_file_name, destination_file_name, force_fresh=False):
             shutil.copy2(source_file_name, destination_file_name)
     else:
         print("Sorry, the source file doesn't exist. Try 'generate' first.")
+
+
+def generate_version_references(prefix):
+    version = prefix[:-1]
+    build_date = datetime.datetime.now()
+    build_date = str(build_date.replace(tzinfo=datetime.timezone.utc))
+    version_details = {
+        "build_date": build_date,
+        "version": version
+    }
+
+    f = open(f"{DIST}/version.json", "wt")
+    f.write(json.dumps(version_details, indent=4))
+    f.close()
+
+    print(f"Deployed version '{version}'.")
 
 
 def copy_static_assets():
