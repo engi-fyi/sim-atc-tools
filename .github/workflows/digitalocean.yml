@@ -51,5 +51,5 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: sfo3
-        SOURCE_DIR: web/dist/
+        SOURCE_DIR: website/
         AWS_S3_ENDPOINT: https://sfo3.digitaloceanspaces.com
