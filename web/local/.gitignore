@@ -1,4 +1,2 @@
-*.js
-data/
-*.html
-*.css
+*
+!.gitignore

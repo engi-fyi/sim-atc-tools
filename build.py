@@ -18,6 +18,7 @@ SRC = "./web/src"
 DATA = "./data"
 CUSTOM = "./custom"
 CONFIG = "./config"
+ASSETS = "./web/assets"
 
 
 def compile_css_assets(folder_name, prefix=""):
@@ -81,6 +82,7 @@ def build():
     shutil.copy2(f"{SRC}/app.js", f"{DIST}/{prefix}app.js")
     build_index(prefix)
     copy_data("dist")
+    copy_static_assets()
 
 
 def build_index(prefix):
@@ -115,6 +117,16 @@ def copy_file(source_file_name, destination_file_name, force_fresh=False):
             shutil.copy2(source_file_name, destination_file_name)
     else:
         print("Sorry, the source file doesn't exist. Try 'generate' first.")
+
+
+def copy_static_assets():
+    print("Copying static assets.")
+    static_assets = os.listdir(ASSETS)
+
+    for sa in static_assets:
+        source_file = os.path.join(ASSETS, sa)
+        destination_file = os.path.join(DIST, sa)
+        copy_file(source_file, destination_file)
 
 
 if __name__ == "__main__":
