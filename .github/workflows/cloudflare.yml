@@ -37,10 +37,38 @@ jobs:
     - name: Build the file
       run: pipenv run python build.py build
 
-    # Runs a single command using the runners shell
     - name: Deploy to Cloudflare Workers with Wrangler
       uses: cloudflare/wrangler-action@1.2.0
       with:
         apiToken: ${{ secrets.CF_API_TOKEN }}
       env:
         USER: root
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        name: website
+        path: |
+          web/dist/
+          !web/dist/**/*.gitignore
+        retention-days: 5
+
+#  deploy-staging:
+#    runs-on: ubuntu-20.04
+#      steps:
+#      - name: Deploy to Cloudflare Workers with Wrangler
+#        uses: cloudflare/wrangler-action@1.2.0
+#        with:
+#          apiToken: ${{ secrets.CF_API_TOKEN }}
+#        env:
+#          USER: root
+#
+#  deploy-production:
+#    runs-on: ubuntu-20.04
+#      steps:
+#      - name: Deploy to Cloudflare Workers with Wrangler
+#        uses: cloudflare/wrangler-action@1.2.0
+#        with:
+#          apiToken: ${{ secrets.CF_API_TOKEN }}
+#        env:
+#          USER: root
