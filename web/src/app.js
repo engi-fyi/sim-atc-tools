@@ -98,7 +98,7 @@ function airlineText(airline) {
 function airportText(airport) {
     output = "<br /><br />ICAO: " + airport.icao_code;
     output += "<br />IATA: " + airport.iata_code;
-    output += "<br />Name: " + airport.name;
+    output += "<br />Name: " + airport.airport_name;
     output += "<br />Location: " + airport.location;
     return output
 }
