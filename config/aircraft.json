@@ -1,0 +1,12 @@
+{
+  "dataset_name": "aircraft",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/List_of_aircraft_type_designators",
+  "a_to_z": false,
+  "fields": [
+    "icao_code",
+    "iata_code",
+    "model_name"
+  ],
+  "key": "icao_code",
+  "has_custom": true
+}

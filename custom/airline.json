@@ -1,0 +1,47 @@
+{
+  "WAT": [
+    {
+      "iata_code": "WAT",
+      "icao_code": "WAT",
+      "airline_name": "Walker Air Transport",
+      "call_sign": "WALKER",
+      "country": "United States"
+    }
+  ],
+  "YM": [
+    {
+      "iata_code": "YM",
+      "icao_code": "CYM",
+      "airline_name": "Compass Airlines",
+      "call_sign": "COMPASS",
+      "country": "Australia"
+    }
+  ],
+  "NWK": [
+    {
+      "iata_code": "QF",
+      "icao_code": "NWK",
+      "airline_name": "Network Aviation",
+      "call_sign": "NETLINK",
+      "country": "Australia"
+    }
+  ],
+  "PST": [
+    {
+      "iata_code": "N/A",
+      "icao_code": "PST",
+      "airline_name": "Pest Airways",
+      "call_sign": "PEST",
+      "country": "Republic of Kiribati"
+    }
+  ],
+  "VCP": [
+    {
+      "iata_code": "AA",
+      "icao_code": "VCP",
+      "airline_name": "Alpaca Airways",
+      "call_sign": "ALPACA",
+      "country": "United Kingdom"
+    }
+  ]
+}

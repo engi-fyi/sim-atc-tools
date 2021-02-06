@@ -1,0 +1,16 @@
+{
+  "dataset_name": "airport",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/List_of_airports_by_IATA_airport_code:_",
+  "a_to_z": true,
+  "a_to_z_prefix": "",
+  "a_to_z_postfix": "",
+  "a_to_z_has_0_to_9": false,
+  "fields": [
+    "iata_code",
+    "icao_code",
+    "airport_name",
+    "location"
+  ],
+  "key": "icao_code",
+  "has_custom": false
+}

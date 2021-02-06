@@ -1,0 +1,63 @@
+$primary-color: #600000;
+$background-color: #A0AAAA;
+$input-text-color: #3b3b3b;
+$font: Consolas, sans-serif;
+
+body {
+    background-color: $background-color;
+    color: $primary-color;
+    font-family: $font;
+    padding-left: 20px;
+    padding-right: 20px;
+    vertical-align: top;
+}
+
+.tool {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.window {
+    border: 2px solid $primary-color;
+    display: inline-block;
+    font-size: 14px;
+    height: 100%;
+
+    .window-title th {
+        border-bottom: 1px solid $primary-color;
+        width: 100%;
+        padding: 10px;
+        font-weight: normal;
+        text-align: center;
+
+        .window-content td {
+            padding: 2.5px;
+        }
+    }
+}
+
+.window-content-input {
+    border-right: 1px solid white;
+    border-top: 2px solid gray;
+    border-bottom: 1px solid white;
+    border-left: 2px solid gray;
+    padding: 2.5px;
+    display: inline-block;
+    width: 250px;
+    background-color: $background-color;
+    font-family: $font;
+    font-size: 14px;
+    color: $input-text-color;
+    font-weight: bold;
+}
+
+.info-window {
+    border-width: 1px;
+    border-color: $primary-color;
+    background-color: $background-color;
+    display: block;
+    padding: 1px;
+    width: 300px;
+    height: 100px;
+}
+

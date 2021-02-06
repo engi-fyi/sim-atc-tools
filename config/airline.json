@@ -1,0 +1,17 @@
+{
+  "dataset_name": "airline",
+  "wikipedia_url": "https://en.wikipedia.org/wiki/List_of_airline_codes_",
+  "a_to_z": true,
+  "a_to_z_prefix": "(",
+  "a_to_z_postfix": ")",
+  "a_to_z_has_0_to_9": true,
+  "fields": [
+    "iata_code",
+    "icao_code",
+    "airline_name",
+    "call_sign",
+    "country"
+  ],
+  "key": "icao_code",
+  "has_custom": true
+}
