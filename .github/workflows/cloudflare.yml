@@ -23,13 +23,13 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Set up Python 3.7
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.7
-          - name: Install pipenv
-            uses: dschep/install-pipenv-action@v1
-          - name: Install pipenv packages
-            run: pipenv install
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+        - name: Install pipenv
+          uses: dschep/install-pipenv-action@v1
+        - name: Install pipenv packages
+          run: pipenv install
 
     - name: Build the file
       run: pipenv run python build.py build
