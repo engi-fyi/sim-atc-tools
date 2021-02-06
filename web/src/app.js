@@ -77,6 +77,7 @@ class ModuleManager {
 }
 
 $(document).ready(function() {
+    drawVersion();
     var modules = ["airline", "airport", "aircraft"];
     var mm = new ModuleManager(modules);
     mm.loadData();
@@ -107,4 +108,15 @@ function aircraftText(aircraft) {
     output += "<br />IATA: " + aircraft.iata_code;
     output += "<br />Name: " + aircraft.model_name;
     return output
+}
+
+async function drawVersion() {
+    versionDetails = await $.ajax({
+        url: "version.json",
+        type: "GET"
+    });
+
+    var existingFooter = $("#footer-text").html();
+    var footer = existingFooter + " | Version: " + versionDetails["version"];
+    $("#footer-text").html(footer)
 }
