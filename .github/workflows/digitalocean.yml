@@ -45,7 +45,7 @@ jobs:
 
     - uses: horochx/deploy-via-scp@master
       with:
-        local: website/
+        local: website/*
         remote: ${{ secrets.STAGING_SCP_REMOTE }}
         host: ${{ secrets.STAGING_SCP_HOST }}
         port: 22 # eg: 22
