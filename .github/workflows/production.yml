@@ -1,6 +1,11 @@
 name: Production Deployment
 on:
   workflow_dispatch:
+    inputs:
+        comments:
+          description: Additional Comments
+          default: N/A
+          required: false
 
 jobs:
   build:
