@@ -1,6 +1,6 @@
 name: Production Deployment
 on:
-  workflow_dispatch: 
+  - push
 
 jobs:
   build:
