@@ -43,13 +43,11 @@ jobs:
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v2
 
-    - uses: jakejarvis/s3-sync-action@master
+    - uses: horochx/deploy-via-scp@master
       with:
-        args: --acl public-read --follow-symlinks --delete
-      env:
-        AWS_S3_BUCKET: ${{ secrets.STAGING_AWS_S3_BUCKET }}
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: ${{ secrets.STAGING_AWS_REGION }}
-        SOURCE_DIR: website/
-        AWS_S3_ENDPOINT: ${{ secrets.STAGING_AWS_S3_ENDPOINT }}
+        local: website/*
+        remote: ${{ secrets.STAGING_SCP_REMOTE }}
+        host: ${{ secrets.STAGING_SCP_HOST }}
+        port: 22 # eg: 22
+        user: ${{ secrets.STAGING_SCP_USER }}
+        key: ${{ secrets.STAGING_SCP_KEY }}
