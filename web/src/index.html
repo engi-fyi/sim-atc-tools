@@ -56,6 +56,59 @@
                 </tr>
             </table>
         </div>
+        <br /><br />
+        <div class="tool">
+            <table class="window" cellspacing="0">
+                <tr class="window-title">
+                    <th colspan="2">
+                        Wake Turbulence Timer &#9432;
+                    </th>
+                </tr>
+                <tr class="window-content">
+                    <td>
+                        Departing Aircraft
+                    </td>
+                </tr>
+                <tr class="window-content">
+                    <td>
+                        <input type="button" value="Light" id="departing_light" class="departing" onClick="timerButtonClicked(this);" />
+                        <input type="button" value="Medium" id="departing_medium" class="departing" onClick="timerButtonClicked(this);" />
+                        <input type="button" value="Heavy" id="departing_heavy" class="departing" onClick="timerButtonClicked(this);" />
+                        <input type="button" value="Super" id="departing_super" class="departing" onClick="timerButtonClicked(this);" />
+                        <input type="hidden" id="departing" value="" />
+                    </td>
+                </tr>
+                <tr class="window-content">
+                    <td>
+                        Waiting Aircraft
+                    </td>
+                </tr>
+                <tr class="window-content">
+                    <td>
+                        <input type="button" value="Light" id="waiting_light" class="waiting" onClick="timerButtonClicked(this);" />
+                        <input type="button" value="Medium" id="waiting_medium" class="waiting" onClick="timerButtonClicked(this);" />
+                        <input type="button" value="Heavy" id="waiting_heavy" class="waiting" onClick="timerButtonClicked(this);" />
+                        <input type="button" value="Super" id="waiting_super" class="waiting" onClick="timerButtonClicked(this);" />
+                        <input type="hidden" id="waiting" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br />
+                        <div class="window-content-input timer" id="timer-details" style="width: 98% !important;">
+                            &nbsp;
+                        </div>
+                        <input type="hidden" id="timer-current" value="0" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br />
+                        <input type="button" value="Reset" class="functional" onclick="clearTimer();" />
+                    </td>
+                </tr>
+            </table>
+        </div>
         <div class="tool">
             <table class="window" cellspacing="0">
                 <tr class="window-title">

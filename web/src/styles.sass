@@ -61,6 +61,48 @@ body {
     height: 100px;
 }
 
+input[type=button] {
+    border: 2px solid $primary-color;
+    padding: 3px 3px 3px 3px;
+    width: 96px;
+    background-color: grey;
+    font-weight: bold;
+    color: white;
+
+    &:hover {
+        background-color: #a8a8a8;
+        cursor: pointer;
+    }
+}
+
+.functional {
+    width: 100% !important;
+    height: 30px !important;
+}
+
+.clicked {
+    background-color: $primary-color !important;
+
+    &:hover {
+        background-color: $primary-color !important;
+        cursor: default !important;
+    }
+}
+
+.not-clicked {
+    background-color: darken(grey, 10%) !important;
+
+    &:hover {
+        background-color: darken(grey, 10%) !important;
+        cursor: not-allowed !important;
+    }
+}
+
+.timer {
+    text-align: center !important;
+    font-size: 30px !important;
+}
+
 .footer {
     background-color: $primary-color;
     color: $background-color;
