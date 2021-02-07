@@ -1,6 +1,9 @@
 name: Deployment
 on:
-  - push
+  push:
+    branches: 
+    - "feature/**"
+    - "hotfix/**"  
 
 jobs:
   build:
