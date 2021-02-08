@@ -87,6 +87,15 @@ $(document).ready(function() {
     mm.clearDetails();
     mm.clearInputs();
     mm.initializeWindows();
+
+    $(".ip-small .button").on("click", function() {
+        $(".ip-large").css("display", "block");
+        $(".ip-small").css("display", "none");
+    });
+    $(".ip-large .button").on("click", function() {
+        $(".ip-large").css("display", "none");
+        $(".ip-small").css("display", "block");
+    });
 });
 
 function airlineText(airline) {
