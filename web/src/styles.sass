@@ -4,7 +4,7 @@ $input-text-color: #3b3b3b;
 $font: Consolas, sans-serif;
 
 body {
-    background-color: $background-color;
+    background-color: darken($background-color, 5%);
     color: $primary-color;
     font-family: $font;
     padding-left: 20px;
@@ -15,6 +15,7 @@ body {
 .tool {
     display: inline-block;
     vertical-align: top;
+    background-color: $background-color;
 }
 
 .window {
@@ -22,13 +23,80 @@ body {
     display: inline-block;
     font-size: 14px;
     height: 100%;
+    width: 600px;
 
-    .window-title th {
+    .window-title {
         border-bottom: 1px solid $primary-color;
         width: 100%;
-        padding: 10px;
         font-weight: normal;
         text-align: center;
+    }
+
+    .title {
+        border-bottom: 1px solid $primary-color;
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-weight: normal;
+        text-align: center;
+    }
+
+    .content {
+        width: 100%;
+
+        .line {
+            display: flex;
+            flex-flow: row;
+            align-items: center;
+            width: auto;
+            padding: 10px 10px 10px 10px;
+
+            input[type=text], .output {
+                border-right: 1px solid white;
+                border-top: 2px solid gray;
+                border-bottom: 1px solid white;
+                border-left: 2px solid gray;
+                padding: 2.5px;
+                display: inline-block;
+                background-color: $background-color;
+                font-family: $font;
+                font-size: 14px;
+                color: $input-text-color;
+                font-weight: bold;
+                flex: 1 1 auto;
+                overflow: auto;
+            }
+
+            input[type=button] {
+                border: 2px solid $primary-color;
+                padding: 3px 3px 3px 3px;
+                flex: 1 1 auto;
+                background-color: grey;
+                font-weight: bold;
+                color: white;
+
+                &:hover {
+                    background-color: #a8a8a8;
+                    cursor: pointer;
+                }
+            }
+
+            .button-spacer {
+                width: 20px;
+            }
+
+            #airport-details {
+                height: 9em;
+            }
+
+            #airline-details {
+                height: 9em;
+            }
+
+            #aircraft-details {
+                height: 7em;
+            }
+        }
     }
 
     .window-content td {
@@ -36,19 +104,8 @@ body {
     }
 }
 
-.window-content-input {
-    border-right: 1px solid white;
-    border-top: 2px solid gray;
-    border-bottom: 1px solid white;
-    border-left: 2px solid gray;
-    padding: 2.5px;
-    display: inline-block;
-    width: 250px;
-    background-color: $background-color;
-    font-family: $font;
-    font-size: 14px;
-    color: $input-text-color;
-    font-weight: bold;
+.spacer {
+    width: 25px;
 }
 
 .info-window {
@@ -57,8 +114,35 @@ body {
     background-color: $background-color;
     display: block;
     padding: 1px;
-    width: 300px;
     height: 100px;
+}
+
+.functional {
+    width: 100% !important;
+    height: 30px !important;
+}
+
+.clicked {
+    background-color: $primary-color !important;
+
+    &:hover {
+        background-color: $primary-color !important;
+        cursor: default !important;
+    }
+}
+
+.not-clicked {
+    background-color: darken(grey, 10%) !important;
+
+    &:hover {
+        background-color: darken(grey, 10%) !important;
+        cursor: not-allowed !important;
+    }
+}
+
+.timer {
+    text-align: center !important;
+    font-size: 30px !important;
 }
 
 .footer {
@@ -69,6 +153,7 @@ body {
     bottom: 0;
     left: 0;
     padding: 10px;
+    z-index: 150;
 
     .content {
         width: 98%;
@@ -77,6 +162,61 @@ body {
 
         a {
             color: $background-color !important;
+        }
+    }
+}
+
+.ip-small {
+    width: 20px;
+    display: none;
+
+    .button {
+        border: none !important;
+        font-size: 25px;
+        text-align: center;
+        line-height: 37.5px;
+
+        &:hover {
+            border-radius: 50%
+        }
+    }
+}
+
+.ip-large {
+    width: 500px;
+}
+
+.info-pane {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding-top: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-left: 2px solid $primary-color;
+    height: 100%;
+    z-index: 100;
+    background-color: $background-color;
+    line-height: 1.5em;
+
+    a {
+        color: $primary-color;
+    }
+
+    .button {
+        border: 1px solid $primary-color;
+        height: 1.5em;
+        width: 1.5em;
+        text-align: center;
+        vertical-align: middle;
+        position: absolute;
+        top: 20px;
+        right: 10px;
+
+        &:hover {
+            background-color: $primary-color;
+            color: white;
+            cursor: pointer;
         }
     }
 }
