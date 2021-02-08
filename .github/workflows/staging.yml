@@ -50,7 +50,7 @@ jobs:
       uses: burnett01/rsync-deployments@4.1
       with:
         switches: -rvtz --delete --exclude=.well-known
-        path: website/*
+        path: website/
         remote_path: ${{ secrets.STAGING_SCP_REMOTE }}
         remote_host: ${{ secrets.STAGING_SCP_HOST }}
         remote_user: ${{ secrets.STAGING_SCP_USER }}
