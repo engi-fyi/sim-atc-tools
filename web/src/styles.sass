@@ -2,6 +2,11 @@ $primary-color: #600000;
 $background-color: #A0AAAA;
 $input-text-color: #3b3b3b;
 $font: Consolas, sans-serif;
+$button-text: rgb(0, 0, 96);
+$button-down: rgb(130, 146, 146);
+$button-border-top: rgb(102, 102, 102);
+$button-border-bottom: white;
+
 
 body {
     background-color: darken($background-color, 5%);
@@ -61,19 +66,26 @@ body {
                 background-color: $background-color;
                 font-family: $font;
                 font-size: 14px;
-                color: $input-text-color;
+                color: $button-text;
                 font-weight: bold;
                 flex: 1 1 auto;
                 overflow: auto;
             }
 
+            /** top 2, bottom 1 **/
             input[type=button] {
-                border: 2px solid $primary-color;
+                border-bottom-color: $button-border-top;
+                border-right-color: $button-border-top;
+                border-top-color: white;
+                border-left-color: white;
                 padding: 3px 3px 3px 3px;
                 flex: 1 1 auto;
-                background-color: grey;
-                font-weight: bold;
-                color: white;
+                background-color: $background-color;;
+                color: $button-text;
+                border-top-width: 3px;
+                border-left-width: 3px;
+                border-bottom-width: 2px;
+                border-right-width: 2px;
 
                 &:hover {
                     background-color: #a8a8a8;
@@ -123,20 +135,29 @@ body {
 }
 
 .clicked {
-    background-color: $primary-color !important;
+    background-color: $button-down !important;
+    border-bottom-color: white !important;
+    border-right-color: white !important;
+    border-top-color: $button-border-top !important;
+    border-left-color: $button-border-top !important;
+    border-top-width: 2px !important;
+    border-left-width: 2px !important;
+    border-bottom-width: 3px !important;
+    border-right-width: 3px !important;
 
     &:hover {
-        background-color: $primary-color !important;
+        background-color: $button-down !important;
         cursor: default !important;
     }
 }
 
 .not-clicked {
-    background-color: darken(grey, 10%) !important;
+    color: gray !important;
 
     &:hover {
-        background-color: darken(grey, 10%) !important;
+        color: gray !important;
         cursor: not-allowed !important;
+        background-color: $background-color !important;
     }
 }
 
