@@ -96,6 +96,8 @@ $(document).ready(function() {
         $(".ip-large").css("display", "none");
         $(".ip-small").css("display", "block");
     });
+
+    vatSys();
 });
 
 function vatSys() {
