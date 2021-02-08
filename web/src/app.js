@@ -98,6 +98,18 @@ $(document).ready(function() {
     });
 });
 
+function vatSys() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var isVatSys = (urlParams.get("vatsys").toLowerCase() == "true");
+
+    if (isVatSys) {
+        console.log("Hiding footer and info-pane.");
+        $(".ip-large").css("display", "none");
+        $(".ip-small").css("display", "none");
+        $(".footer").css("display", "none");
+    }
+}
+
 function airlineText(airline) {
     output = "<br /><br />ICAO: " + airline.icao_code;
     output += "<br />IATA: " + airline.iata_code;
