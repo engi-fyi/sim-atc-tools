@@ -3,5 +3,464 @@
     "icao_code": "EVIC",
     "iata_code": "N/A",
     "model_name": "Epic Victory"
+  }],
+  "RALL": [{
+    "icao_code": "RALL",
+    "iata_code": "N/A",
+    "model_name": "Socata Rallye"
+  }],
+  "Z26": [{
+    "icao_code": "Z26",
+    "iata_code": "N/A",
+    "model_name": "Zlin Z-26 Trener (Trainer)"
+  }],
+  "D11": [{
+    "icao_code": "D11",
+    "iata_code": "N/A",
+    "model_name": "Jodel D.11"
+  }],
+  "SBR1": [{
+    "icao_code": "SBR1",
+    "iata_code": "N/A",
+    "model_name": "North American Sabreliner"
+  }],
+  "M20P": [{
+    "icao_code": "M20P",
+    "iata_code": "N/A",
+    "model_name": "Mooney M20"
+  }],
+  "CP30": [{
+    "icao_code": "CP30",
+    "iata_code": "N/A",
+    "model_name": "Piel CP-30 Emeraude"
+  }],
+  "DR40": [{
+    "icao_code": "DR40",
+    "iata_code": "N/A",
+    "model_name": "Robin DR400 (Avions Pierre Robin)"
+  }],
+  "SW4": [{
+    "icao_code": "SW4",
+    "iata_code": "N/A",
+    "model_name": "Swearingen Merlin"
+  }],
+  "P28R": [{
+    "icao_code": "P28R",
+    "iata_code": "N/A",
+    "model_name": "Piper PA-28 Cherokee"
+  }],
+  "BE20": [{
+    "icao_code": "BE20",
+    "iata_code": "N/A",
+    "model_name": "Super Beechcraft King Air 200"
+  }],
+  "PA32": [{
+    "icao_code": "PA32",
+    "iata_code": "N/A",
+    "model_name": "PA-32 Cherokee Six"
+  }],
+  "GLF2": [{
+    "icao_code": "GLF2",
+    "iata_code": "N/A",
+    "model_name": "Grumman Gulfstream II"
+  }],
+  "P32R": [{
+    "icao_code": "P32R",
+    "iata_code": "N/A",
+    "model_name": "PA-32 Cherokee Six"
+  }],
+  "P32R": [{
+    "icao_code": "P32R",
+    "iata_code": "N/A",
+    "model_name": "PA-32 Cherokee Six"
+  }],
+  "M7": [{
+    "icao_code": "M7",
+    "iata_code": "N/A",
+    "model_name": "Maule M-7"
+  }],
+  "WACC": [{
+    "icao_code": "WACC",
+    "iata_code": "N/A",
+    "model_name": "Waco Custom Cabin series"
+  }],
+  "SS2T": [{
+    "icao_code": "SS2T",
+    "iata_code": "N/A",
+    "model_name": "Ayres Thrush"
+  }],
+  "F260": [{
+    "icao_code": "F260",
+    "iata_code": "N/A",
+    "model_name": "SIAI-Marchetti SF.260"
+  }],
+  "C337": [{
+    "icao_code": "C337",
+    "iata_code": "N/A",
+    "model_name": "Cessna 336 Skymaster "
+  },{
+    "icao_code": "C337",
+    "iata_code": "N/A",
+    "model_name": "Cessna 337 Super Skymaster "
+  }],
+  "PA18": [{
+    "icao_code": "PA18",
+    "iata_code": "N/A",
+    "model_name": "PA-18 Super Cub"
+  }],
+  "G164": [{
+    "icao_code": "G164",
+    "iata_code": "N/A",
+    "model_name": "Grumman G-164 Ag Cat"
+  }],
+  "WACF": [{
+    "icao_code": "WACF",
+    "iata_code": "N/A",
+    "model_name": "Waco F series"
+  }],
+  "DR30": [{
+    "icao_code": "DR30",
+    "iata_code": "N/A",
+    "model_name": "Robin DR300 (Avions Pierre Robin)"
+  }],
+  "DR10": [{
+    "icao_code": "DR10",
+    "iata_code": "N/A",
+    "model_name": "Jodel DR1050 Excellence/Ambassadeur"
+  }],
+  "SS2P": [{
+    "icao_code": "SS2P",
+    "iata_code": "N/A",
+    "model_name": "Ayres Thrush"
+  }],
+  "CH60": [{
+    "icao_code": "CH60",
+    "iata_code": "N/A",
+    "model_name": "AMD Zodiac"
+  }],
+  "SF25": [{
+    "icao_code": "SF25",
+    "iata_code": "N/A",
+    "model_name": "Scheibe SF-25 Falke"
+  }],
+  "PA34": [{
+    "icao_code": "PA34",
+    "iata_code": "N/A",
+    "model_name": "Piper PA-34 Seneca"
+  }],
+  "G64T": [{
+    "icao_code": "G64T",
+    "iata_code": "N/A",
+    "model_name": "Grumman G-164T Ag Cat (Turbo)"
+  }],
+  "J3": [{
+    "icao_code": "J3",
+    "iata_code": "N/A",
+    "model_name": "Piper J-3 Cub"
+  }],
+  "AA1": [{
+    "icao_code": "AA1",
+    "iata_code": "N/A",
+    "model_name": "Grumman American AA-1"
+  }],
+  "L8": [{
+    "icao_code": "L8",
+    "iata_code": "N/A",
+    "model_name": "Luscombe 8"
+  }],
+  "BU81": [{
+    "icao_code": "BU81",
+    "iata_code": "N/A",
+    "model_name": "Bücker Bü 181 Bestmann"
+  }],
+  "TEX2": [{
+    "icao_code": "TEX2",
+    "iata_code": "N/A",
+    "model_name": "Beechcraft T-6 Texan II"
+  }],
+  "BE9L": [{
+    "icao_code": "BE9L",
+    "iata_code": "N/A",
+    "model_name": "Beechcraft King Air 90"
+  }],
+  "O1": [{
+    "icao_code": "O1",
+    "iata_code": "N/A",
+    "model_name": "Cessna O-1 Bird Dog"
+  }],
+  "DIMO": [{
+    "icao_code": "DIMO",
+    "iata_code": "N/A",
+    "model_name": "Diamond HK36 Super Dimona"
+  }],
+  "AA5": [{
+    "icao_code": "AA5",
+    "iata_code": "N/A",
+    "model_name": "Grumman American AA-5"
+  }],
+  "BN2T": [{
+    "icao_code": "BN2T",
+    "iata_code": "N/A",
+    "model_name": "Britten-Norman BN-2 Islander (Turbo)"
+  }],
+  "C150": [{
+    "icao_code": "C150",
+    "iata_code": "N/A",
+    "model_name": "Cessna 150"
+  }],
+  "M20T": [{
+    "icao_code": "M20T",
+    "iata_code": "N/A",
+    "model_name": "Mooney M20T"
+  }],
+  "BE4W": [{
+    "icao_code": "BE4W",
+    "iata_code": "N/A",
+    "model_name": " Hawker (Beechjet) 400"
+  }],
+  "TAYB": [{
+    "icao_code": "TAYB",
+    "iata_code": "N/A",
+    "model_name": "Taylorcraft B"
+  }],
+  "BE36": [{
+    "icao_code": "BE36",
+    "iata_code": "N/A",
+    "model_name": "Beechcraft Bonanza"
+  }],
+  "C188": [{
+    "icao_code": "C188",
+    "iata_code": "N/A",
+    "model_name": "Cessna 188 AG series "
+  }],
+  "M4": [{
+    "icao_code": "M4",
+    "iata_code": "N/A",
+    "model_name": "Maule M-4"
+  }],
+  "COUR": [{
+    "icao_code": "COUR",
+    "iata_code": "N/A",
+    "model_name": "Helio Courier"
+  }],
+  "B14C": [{
+    "icao_code": "B14C",
+    "iata_code": "N/A",
+    "model_name": "Bellanca 14-13"
+  }],
+  "P28S": [{
+    "icao_code": "P28S",
+    "iata_code": "N/A",
+    "model_name": "Piper PA-28 Cherokee"
+  }],
+  "Z37P": [{
+    "icao_code": "Z37P",
+    "iata_code": "N/A",
+    "model_name": "Zlin Z-37 Čmelák"
+  }],
+  "B350": [{
+    "icao_code": "B350",
+    "iata_code": "N/A",
+    "model_name": "Beechcraft Super King Air 350"
+  }],
+  "BE18": [{
+    "icao_code": "BE18",
+    "iata_code": "N/A",
+    "model_name": "Beechcraft Model 18 (Twin Beech)"
+  }],
+  "C207": [{
+    "icao_code": "C207",
+    "iata_code": "N/A",
+    "model_name": "Cessna 205/206/207 Stationair"
+  }],
+  "WACO": [{
+    "icao_code": "WACO",
+    "iata_code": "N/A",
+    "model_name": "Waco 10/GXE/Waco O series"
+  }],
+  "DV20": [{
+    "icao_code": "DV20",
+    "iata_code": "N/A",
+    "model_name": "Diamond DA20 Katana"
+  }],
+  "T206": [{
+    "icao_code": "T206",
+    "iata_code": "N/A",
+    "model_name": "Cessna 205/206/207 Stationair"
+  }],
+  "T211": [{
+    "icao_code": "T211",
+    "iata_code": "N/A",
+    "model_name": "Thorp T-211"
+  }],
+  "LA60": [{
+    "icao_code": "LA60",
+    "iata_code": "N/A",
+    "model_name": "Aermacchi AL-60"
+  }],
+  "PAY2": [{
+    "icao_code": "PAY2",
+    "iata_code": "N/A",
+    "model_name": "Piper PA-31 Navajo"
+  }],
+  "GLF3": [{
+    "icao_code": "GLF3",
+    "iata_code": "N/A",
+    "model_name": "Gulfstream III"
+  }],
+  "ERCO": [{
+    "icao_code": "ERCO",
+    "iata_code": "N/A",
+    "model_name": "ERCO Ercoupe/Mooney M-10"
+  }],
+  "L18": [{
+    "icao_code": "L18",
+    "iata_code": "N/A",
+    "model_name": "Lockheed Model 18 Lodestar"
+  }],
+  "TBM9": [{
+    "icao_code": "TBM9",
+    "iata_code": "N/A",
+    "model_name": "SOCATA (Daher) TBM"
+  }],
+  "AC11": [{
+    "icao_code": "AC11",
+    "iata_code": "N/A",
+    "model_name": "Rockwell Commander 112"
+  }],
+  "AC95": [{
+    "icao_code": "AC95",
+    "iata_code": "N/A",
+    "model_name": "Aero Commander 500 family"
+  }],
+  "CH75": [{
+    "icao_code": "CH75",
+    "iata_code": "N/A",
+    "model_name": "Zenith STOL CH 701/750"
+  }],
+  "J1": [{
+    "icao_code": "J1",
+    "iata_code": "N/A",
+    "model_name": "Auster Autocrat"
+  }],
+  "SW3": [{
+    "icao_code": "SW3",
+    "iata_code": "N/A",
+    "model_name": "Swearingen Merlin"
+  }],
+  "G115": [{
+    "icao_code": "G115",
+    "iata_code": "N/A",
+    "model_name": "Grob G 115"
+  }],
+  "VL3": [{
+    "icao_code": "VL3",
+    "iata_code": "N/A",
+    "model_name": "Aveko VL-3 Sprint"
+  }],
+  "HB23": [{
+    "icao_code": "HB23",
+    "iata_code": "N/A",
+    "model_name": "Brditschka HB-3"
+  }],
+  "ST75": [{
+    "icao_code": "ST75",
+    "iata_code": "N/A",
+    "model_name": "Boeing-Stearman Model 75 (Kaydet)"
+  }],
+  "PTMS": [{
+    "icao_code": "PTMS",
+    "iata_code": "N/A",
+    "model_name": "Pitts Special"
+  }],
+  "COL3": [{
+    "icao_code": "COL3",
+    "iata_code": "N/A",
+    "model_name": "Cessna 350 Corvalis"
+  }],
+  "A9": [{
+    "icao_code": "A9",
+    "iata_code": "N/A",
+    "model_name": "CallAir A-9"
+  }],
+  "PA11": [{
+    "icao_code": "PA11",
+    "iata_code": "N/A",
+    "model_name": "Piper PA-11 Cub Special"
+  }],
+  "ARV1": [{
+    "icao_code": "ARV1",
+    "iata_code": "N/A",
+    "model_name": "ARV Super2"
+  }],
+  "C185": [{
+    "icao_code": "C185",
+    "iata_code": "N/A",
+    "model_name": "Cessna 185 Skywagon"
+  }],
+  "P32T": [{
+    "icao_code": "P32T",
+    "iata_code": "N/A",
+    "model_name": "PA-32R Lance/Saratoga"
+  }],
+  "CH70": [{
+    "icao_code": "CH70",
+    "iata_code": "N/A",
+    "model_name": "Zenith STOL CH 701/750"
+  }],
+  "H25A": [{
+    "icao_code": "H25A",
+    "iata_code": "N/A",
+    "model_name": "BAe 125/Dominie Hawker 1000 "
+  }],
+  "NIPR": [{
+    "icao_code": "NIPR",
+    "iata_code": "N/A",
+    "model_name": "Tipsy Nipper"
+  }],
+  "BL17": [{
+    "icao_code": "BL17",
+    "iata_code": "N/A",
+    "model_name": "Bellanca Viking"
+  }],
+  "P28U": [{
+    "icao_code": "P28U",
+    "iata_code": "N/A",
+    "model_name": "Piper PA-28 Cherokee (Turbo Arrow)"
+  }],
+  "AP20": [{
+    "icao_code": "AP20",
+    "iata_code": "N/A",
+    "model_name": "eroprakt A-20 Vista"
+  }],
+  "CP13": [{
+    "icao_code": "CP13",
+    "iata_code": "N/A",
+    "model_name": "Piel CP-30 Super Emeraude"
+  }],
+  "VTOR": [{
+    "icao_code": "VTOR",
+    "iata_code": "N/A",
+    "model_name": "Partenavia P.68"
+  }],
+  "IPAN": [{
+    "icao_code": "IPAN",
+    "iata_code": "N/A",
+    "model_name": "Embraer EMB 202 Ipanema"
+  }],
+  "T6": [{
+    "icao_code": "T6",
+    "iata_code": "N/A",
+    "model_name": "North American T-6 Texan"
+  }],
+  "DH82": [{
+    "icao_code": "DH82",
+    "iata_code": "N/A",
+    "model_name": "de Havilland Tiger Moth (DH.82)"
+  }],
+  "TF22": [{
+    "icao_code": "TF22",
+    "iata_code": "N/A",
+    "model_name": "Taylorcraft F-21"
   }]
 }
