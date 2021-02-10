@@ -1,26 +1,17 @@
-$primary-color: #600000;
-$background-color: #A0AAAA;
-$input-text-color: #3b3b3b;
-$font: Consolas, sans-serif;
-$button-text: rgb(0, 0, 96);
-$button-down: rgb(130, 146, 146);
-$button-border-top: rgb(102, 102, 102);
-$button-border-bottom: white;
-
-
-body {
-    background-color: darken($background-color, 5%);
-    color: $primary-color;
-    font-family: $font;
-    padding-left: 20px;
-    padding-right: 20px;
-    vertical-align: top;
-}
-
 .tool {
     display: inline-block;
     vertical-align: top;
     background-color: $background-color;
+    margin-top: 20px;
+    margin-right: 10px;
+}
+
+.window-tool {
+    width: 550px;
+}
+
+.window-menu {
+    width: 700px;
 }
 
 .window {
@@ -28,7 +19,6 @@ body {
     display: inline-block;
     font-size: 14px;
     height: 100%;
-    width: 600px;
 
     .window-title {
         border-bottom: 1px solid $primary-color;
@@ -72,27 +62,6 @@ body {
                 overflow: auto;
             }
 
-            /** top 2, bottom 1 **/
-            input[type=button] {
-                border-bottom-color: $button-border-top;
-                border-right-color: $button-border-top;
-                border-top-color: white;
-                border-left-color: white;
-                padding: 3px 3px 3px 3px;
-                flex: 1 1 auto;
-                background-color: $background-color;;
-                color: $button-text;
-                border-top-width: 3px;
-                border-left-width: 3px;
-                border-bottom-width: 2px;
-                border-right-width: 2px;
-
-                &:hover {
-                    background-color: #a8a8a8;
-                    cursor: pointer;
-                }
-            }
-
             .button-spacer {
                 width: 5px;
             }
@@ -114,10 +83,6 @@ body {
     .window-content td {
         padding: 3px;
     }
-}
-
-.spacer {
-    width: 25px;
 }
 
 .info-window {
@@ -166,78 +131,3 @@ body {
     font-size: 30px !important;
 }
 
-.footer {
-    background-color: $primary-color;
-    color: $background-color;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    padding: 10px;
-    z-index: 150;
-
-    .content {
-        width: 98%;
-        text-align: right;
-        font-weight: bold;
-
-        a {
-            color: $background-color !important;
-        }
-    }
-}
-
-.ip-small {
-    width: 20px;
-    display: none;
-
-    .button {
-        border: none !important;
-        font-size: 25px;
-        text-align: center;
-        line-height: 37.5px;
-
-        &:hover {
-            border-radius: 50%
-        }
-    }
-}
-
-.ip-large {
-    width: 500px;
-}
-
-.info-pane {
-    position: fixed;
-    top: 0;
-    right: 0;
-    padding-top: 5px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border-left: 2px solid $primary-color;
-    height: 100%;
-    z-index: 100;
-    background-color: $background-color;
-    line-height: 1.5em;
-
-    a {
-        color: $primary-color;
-    }
-
-    .button {
-        border: 1px solid $primary-color;
-        height: 1.5em;
-        width: 1.5em;
-        text-align: center;
-        vertical-align: middle;
-        position: absolute;
-        top: 20px;
-        right: 10px;
-
-        &:hover {
-            background-color: $primary-color;
-            color: white;
-            cursor: pointer;
-        }
-    }
-}

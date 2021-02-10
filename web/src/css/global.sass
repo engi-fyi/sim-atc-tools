@@ -1,0 +1,38 @@
+$primary-color: #600000;
+$background-color: #A0AAAA;
+$input-text-color: #3b3b3b;
+$font: Consolas, sans-serif;
+$button-text: rgb(0, 0, 96);
+$button-down: rgb(130, 146, 146);
+$button-border-top: rgb(102, 102, 102);
+$button-border-bottom: white;
+
+input[type=button] {
+    border-bottom-color: $button-border-top;
+    border-right-color: $button-border-top;
+    border-top-color: white;
+    border-left-color: white;
+    padding: 3px 3px 3px 3px;
+    flex: 1 1 auto;
+    background-color: $background-color;;
+    color: $button-text;
+    border-top-width: 3px;
+    border-left-width: 3px;
+    border-bottom-width: 2px;
+    border-right-width: 2px;
+
+    &:hover {
+        background-color: #a8a8a8;
+        cursor: pointer;
+    }
+}
+
+body {
+    background-color: darken($background-color, 5%);
+    color: $primary-color;
+    font-family: $font;
+    padding-left: 20px;
+    padding-right: 20px;
+    vertical-align: top;
+    margin: 0;
+}
