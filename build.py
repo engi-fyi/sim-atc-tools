@@ -21,27 +21,51 @@ DATA = "./data"
 CUSTOM = "./custom"
 CONFIG = "./config"
 ASSETS = "./web/assets"
+JAVASCRIPT_SRC = "./web/src/js"
+SASS_SRC = "./web/src/css"
 
 
 def compile_css_assets(folder_name, prefix=""):
-    with open(f"{SRC}/styles.sass", "r") as style:
-        sass_in = style.read()
-        style.close()
-        css_out = sass.compile(string=sass_in)
+    all_source_files = os.listdir(SASS_SRC)
+    sass_files = [f for f in all_source_files if f.endswith(".sass")]
+    full_sass = ""
 
-        with open(f"{WEB}/{folder_name}/{prefix}styles.css", "w") as compiled_style:
-            compiled_style.write(css_out)
-            compiled_style.close()
+    for css_file in sass_files:
+        with open(f"{SASS_SRC}/{css_file}", "r") as style:
+            full_sass = f"{full_sass}{style.read()}\n"
+            style.close()
+
+    css_out = sass.compile(string=full_sass)
+
+    with open(f"{folder_name}/{prefix}styles.css", "w") as compiled_style:
+        compiled_style.write(css_out)
+        compiled_style.close()
+
+
+def compile_javascript_assets(folder_name, prefix=""):
+    all_source_files = os.listdir(JAVASCRIPT_SRC)
+    js_files = [f for f in all_source_files if f.endswith(".js")]
+    full_js = ""
+
+    for js_file in js_files:
+        with open(f"{JAVASCRIPT_SRC}/{js_file}", "r") as script:
+            full_js = f"{full_js}{script.read()}\n\n"
+            script.close()
+
+    with open(f"{folder_name}/{prefix}app.js", "w") as compiled_js:
+        compiled_js.write(full_js)
+        compiled_js.close()
 
 
 def local():
     print("Serving fresh copy of assets.")
-    print("Compiling CSS.")
-    compile_css_assets("local")
-    print("Copying HTML and JS.")
+    print("Compiling CSS and Javascript.")
+    compile_css_assets(LOCAL)
+    compile_javascript_assets(LOCAL)
+    print("Copying HTML.")
     shutil.copy2(f"{SRC}/index.html", f"{LOCAL}/index.html")
-    shutil.copy2(f"{SRC}/app.js", f"{LOCAL}/app.js")
-    copy_data("local")
+    print("Copying data files.")
+    copy_data(LOCAL)
     print("Web server running.")
     serve_local(8080)
 
@@ -49,7 +73,6 @@ def local():
 def serve_local(port):
     web_dir = os.path.join(os.path.dirname(__file__), LOCAL)
     os.chdir(web_dir)
-
     handler = http.server.SimpleHTTPRequestHandler
     httpd = socketserver.TCPServer(("", port), handler)
     print(f"Listening on port '{port}'.")
@@ -80,8 +103,8 @@ def build():
     prefix = (shortuuid.uuid()[:7] + "_").lower()
     print("Compiling CSS.")
     compile_css_assets("dist", prefix)
+    compile_javascript_assets("dist", prefix)
     print("Copying HTML and JS.")
-    shutil.copy2(f"{SRC}/app.js", f"{DIST}/{prefix}app.js")
     build_index(prefix)
     copy_data("dist")
     copy_static_assets()
@@ -95,8 +118,8 @@ def build_index(prefix):
     data = f.read()
     f.close()
 
-    data = data.replace("app.js", f"{prefix}app.js")
     data = data.replace("styles.css", f"{prefix}styles.css")
+    data = data.replace("app.js", f"{prefix}app.js")
 
     f = open(target_index, "wt")
     f.write(data)
@@ -114,7 +137,6 @@ def copy_file(source_file_name, destination_file_name, force_fresh=False):
 
                 if source_hash == destination_hash:
                     changes = False
-
         if changes:
             print("There have been changes, copying new data files.")
             shutil.copy2(source_file_name, destination_file_name)

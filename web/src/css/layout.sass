@@ -1,0 +1,86 @@
+$menu-expanded-size: 500px;
+$menu-closed-size: 20px;
+
+.footer {
+    background-color: $primary-color;
+    color: $background-color;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    z-index: 150;
+
+    .content {
+        width: 98%;
+        text-align: right;
+        font-weight: bold;
+
+        a {
+            color: $background-color !important;
+        }
+    }
+}
+
+.ip-small {
+    width: $menu-closed-size;
+    display: none;
+
+    .button {
+        border: none !important;
+        font-size: 25px;
+        text-align: center;
+        line-height: 37.5px;
+
+        &:hover {
+            border-radius: 50%
+        }
+    }
+}
+
+.ip-large {
+    width: $menu-expanded-size;
+}
+
+.info-pane {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding-top: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-left: 2px solid $primary-color;
+    height: 100%;
+    z-index: 100;
+    background-color: $background-color;
+    line-height: 1.5em;
+
+    a {
+        color: $primary-color;
+    }
+
+    .button {
+        border: 1px solid $primary-color;
+        height: 1.5em;
+        width: 1.5em;
+        text-align: center;
+        vertical-align: middle;
+        position: absolute;
+        top: 20px;
+        right: 10px;
+
+        &:hover {
+            background-color: $primary-color;
+            color: white;
+            cursor: pointer;
+        }
+    }
+}
+
+#desktop {
+    margin-right: $menu-expanded-size + 50px;
+}
+
+.menu {
+
+}
