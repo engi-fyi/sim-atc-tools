@@ -1,0 +1,101 @@
+    <div class="tool" id="enroute-assistant">
+        <div class="window window-tool">
+            <div class="title">
+                Enroute Assistant &#9432;
+            </div>
+            <div class="content">
+                <div class="line tool-menu">
+                    <input type="button" value="Add Time" /><b class="button-spacer"></b>
+                    <input type="button" value="Add Distance" /><b class="button-spacer"></b>
+                    <input type="button" value="Cross Time" /><b class="button-spacer lg"></b>
+                    <input type="button" value="Reset" /><b class="button-spacer"></b>
+                    <input type="button" value="Help" /><b class="button-spacer"></b>
+                </div>
+            </div>
+            <div class="content">
+                <div class="column">
+                    Input<br /><br />
+                    <div class="input-inner">
+                        Groundspeed <input type="text" /><br />
+                        Flight Level <input type="text" /><br />
+                        Distance to Fix <input type="text" /><br />
+                        Delay Required <input type="text" /><br />
+                        Reported Mach <input type="text" />
+                    </div>
+                </div>
+                <div class="column">
+                    Apply Speed<br /><br />
+                    <div class="output enroute-container">
+                        <h1>Mach <b id="mach-number">.76</b></h1>
+                        &nbsp;<br />
+                        <table>
+                            <tr>
+                                <th>Ground Spd: </th>
+                                <td>471</td>
+                                <td>knots</td>
+                            </tr>
+                            <tr>
+                                <th>Distance: </th>
+                                <td>17</td>
+                                <td>NM</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="column">
+                    Vector then DCT Fix<br /><br />
+                    <div class="output enroute-container direction-time">
+                        <table>
+                            <tr>
+                                <th>Turn</th>
+                                <th>Mins</th>
+                            </tr>
+                            <tr>
+                                <td>10&#176;</td>
+                                <td>25.2</td>
+                            </tr>
+                            <tr>
+                                <td>20&#176;</td>
+                                <td>16.2</td>
+                            </tr>
+                            <tr>
+                                <td>30&#176;</td>
+                                <td>10.3</td>
+                            </tr>
+                            <tr>
+                                <td>40&#176;</td>
+                                <td>5.7</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="column">
+                    Vector then RTN Rte<br /><br />
+                    <div class="output enroute-container direction-time">
+                        <table>
+                            <tr>
+                                <th>Turn</th>
+                                <th>Mins</th>
+                            </tr>
+                            <tr>
+                                <td>10&#176;</td>
+                                <td>65.8</td>
+                            </tr>
+                            <tr>
+                                <td>20&#176;</td>
+                                <td>16.6</td>
+                            </tr>
+                            <tr>
+                                <td>30&#176;</td>
+                                <td>7.5</td>
+                            </tr>
+                            <tr>
+                                <td>40&#176;</td>
+                                <td>3.4</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

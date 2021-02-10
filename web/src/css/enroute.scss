@@ -1,0 +1,51 @@
+#enroute-assistant {
+  .window-tool {
+    width: 850px !important;
+    text-align: center;
+  }
+}
+
+.input-inner {
+  text-align: right;
+  line-height: 2.25em;
+  height: 180px;
+  padding-top: 20px;
+  padding-right: 20px;
+
+  input[type=text] {
+    flex: none;
+    width: 30px;
+  }
+}
+
+.enroute-container {
+  width: 90%;
+  line-height: 2.2em;
+  height: 180px;
+  text-align: center;
+}
+
+.direction-time {
+  table {
+    margin: auto;
+
+    th {
+      color: $primary-color;
+    }
+    td, th {
+      padding-left: 15px;
+      padding-right: 15px;
+      text-align: center !important;
+    }
+
+  }
+}
+
+#mach-number {
+  border: 3px solid $primary-color;
+  padding: 5px;
+}
+
+#enroute-content {
+  height: 250px;
+}
