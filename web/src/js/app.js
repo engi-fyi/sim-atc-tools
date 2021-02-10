@@ -13,18 +13,6 @@ $(document).ready(function() {
     mm.clearInputs();
     mm.initializeWindows();
 
-    // timer
-    $(".ip-small .button").on("click", function() {
-        $(".ip-large").css("display", "block");
-        $(".ip-small").css("display", "none");
-        $("#desktop").css("margin-right", "550px")
-    });
-    $(".ip-large .button").on("click", function() {
-        $(".ip-large").css("display", "none");
-        $(".ip-small").css("display", "block");
-        $("#desktop").css("margin-right", "70px")
-    });
-
     vatSys();
 });
 
@@ -38,8 +26,21 @@ function vatSys() {
             $(".ip-large").css("display", "none");
             $(".ip-small").css("display", "none");
             $(".footer").css("display", "none");
+            $("#desktop").css("margin-right", "0px")
         }
     } catch { }
+}
+
+function openInfoPane() {
+    $(".ip-large").css("display", "block");
+    $(".ip-small").css("display", "none");
+    $("#desktop").css("margin-right", "550px")
+}
+
+function closeInfoPane() {
+    $(".ip-large").css("display", "none");
+    $(".ip-small").css("display", "block");
+    $("#desktop").css("margin-right", "70px")
 }
 
 async function drawVersion() {
