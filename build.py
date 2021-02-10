@@ -82,8 +82,8 @@ def serve_local(port):
 def copy_data(folder_name, force_fresh=False):
     for m in ["airline", "aircraft", "airport"]:
         source_file_name = f"{DATA}/{m}.json"
-        destination_file_name = f"{WEB}/{folder_name}/data/{m}.json"
-        Path(f"{WEB}/{folder_name}/data").mkdir(parents=True, exist_ok=True)
+        destination_file_name = f"{folder_name}/data/{m}.json"
+        Path(f"{folder_name}/data").mkdir(parents=True, exist_ok=True)
         copy_file(source_file_name, destination_file_name, force_fresh)
 
 
@@ -102,11 +102,11 @@ def build():
     delete_dist()
     prefix = (shortuuid.uuid()[:7] + "_").lower()
     print("Compiling CSS.")
-    compile_css_assets("dist", prefix)
-    compile_javascript_assets("dist", prefix)
+    compile_css_assets(DIST, prefix)
+    compile_javascript_assets(DIST, prefix)
     print("Copying HTML and JS.")
     build_index(prefix)
-    copy_data("dist")
+    copy_data(DIST)
     copy_static_assets()
     generate_version_references(prefix)
 
