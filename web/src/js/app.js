@@ -13,6 +13,7 @@ $(document).ready(function() {
     mm.clearInputs();
     mm.initializeWindows();
 
+    enrResetAll();
     vatSys();
 });
 

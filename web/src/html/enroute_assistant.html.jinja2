@@ -5,10 +5,10 @@
             </div>
             <div class="content">
                 <div class="line tool-menu">
-                    <input type="button" value="Add Time" /><b class="button-spacer"></b>
-                    <input type="button" value="Add Distance" /><b class="button-spacer"></b>
-                    <input type="button" value="Cross Time" /><b class="button-spacer lg"></b>
-                    <input type="button" value="Reset" /><b class="button-spacer"></b>
+                    <input type="button" class="enroute-calculator-selector clicked" id="add-time" value="Add Time" onclick="activateCalculator(this);" /><b class="button-spacer"></b>
+                    <input type="button" class="enroute-calculator-selector" id="add-distance" value="Add Distance" onclick="activateCalculator(this);" /><b class="button-spacer"></b>
+                    <input type="button" class="enroute-calculator-selector" id="cross-time" value="Cross Time" onclick="activateCalculator(this);" /><b class="button-spacer lg"></b>
+                    <input type="button" value="Reset" onclick="resetAll();" /><b class="button-spacer"></b>
                     <input type="button" value="Help" /><b class="button-spacer"></b>
                 </div>
             </div>
@@ -16,27 +16,28 @@
                 <div class="column">
                     Input<br /><br />
                     <div class="input-inner">
-                        Groundspeed <input type="text" /><br />
-                        Flight Level <input type="text" /><br />
-                        Distance to Fix <input type="text" /><br />
-                        Delay Required <input type="text" /><br />
-                        Reported Mach <input type="text" />
+                        Groundspeed <input class="enr_in" id="enr_in_groundspeed" type="text" /><br />
+                        Flight Level <input class="enr_in" id="enr_in_flight_level" type="text" /><br />
+                        Distance to Fix <input class="enr_in" id="enr_in_dis_to_fix" type="text" /><br />
+                        <span id="enr_label_data_point">Delay Required</span> <input class="enr_in" id="enr_in_data_point" type="text" /><br />
+                        Reported Mach <input class="enr_in" id="enr_in_reported_mach" type="text" />
+                        <input type="hidden" value="Add Time" id="enr_current_mode" />
                     </div>
                 </div>
                 <div class="column">
                     Apply Speed<br /><br />
                     <div class="output enroute-container">
-                        <h1>Mach <b id="mach-number">.76</b></h1>
+                        <h1>Mach <b class="enr_out" id="enr_out_mach_number">.76</b></h1>
                         &nbsp;<br />
                         <table>
                             <tr>
-                                <th>Ground Spd: </th>
-                                <td>471</td>
+                                <th>Ground Speed: </th>
+                                <td class="enr_out" id="enr_out_ground_speed">471</td>
                                 <td>knots</td>
                             </tr>
                             <tr>
-                                <th>Distance: </th>
-                                <td>17</td>
+                                <th id="enr_label_out_data_point">+Distance: </th>
+                                <td class="enr_out" id="enr_out_data_point">17</td>
                                 <td>NM</td>
                             </tr>
                         </table>
@@ -52,19 +53,19 @@
                             </tr>
                             <tr>
                                 <td>10&#176;</td>
-                                <td>25.2</td>
+                                <td class="enr_out">25.2</td>
                             </tr>
                             <tr>
                                 <td>20&#176;</td>
-                                <td>16.2</td>
+                                <td class="enr_out">16.2</td>
                             </tr>
                             <tr>
                                 <td>30&#176;</td>
-                                <td>10.3</td>
+                                <td class="enr_out">10.3</td>
                             </tr>
                             <tr>
                                 <td>40&#176;</td>
-                                <td>5.7</td>
+                                <td class="enr_out">5.7</td>
                             </tr>
                         </table>
                     </div>
@@ -79,19 +80,19 @@
                             </tr>
                             <tr>
                                 <td>10&#176;</td>
-                                <td>65.8</td>
+                                <td class="enr_out">65.8</td>
                             </tr>
                             <tr>
                                 <td>20&#176;</td>
-                                <td>16.6</td>
+                                <td class="enr_out">16.6</td>
                             </tr>
                             <tr>
                                 <td>30&#176;</td>
-                                <td>7.5</td>
+                                <td class="enr_out">7.5</td>
                             </tr>
                             <tr>
                                 <td>40&#176;</td>
-                                <td>3.4</td>
+                                <td class="enr_out">3.4</td>
                             </tr>
                         </table>
                     </div>
