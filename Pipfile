@@ -10,7 +10,7 @@ lunr = "*"
 libsass = "*"
 watchgod = "*"
 shortuuid = "*"
-jinja = "*"
+jinja2 = "*"
 
 [dev-packages]
 
