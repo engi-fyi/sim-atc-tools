@@ -27,7 +27,7 @@ SASS_SRC = "./web/src/css"
 HTML_SRC = "./web/src/html"
 
 
-def build_html(folder_name):
+def build_html(folder_name, prefix=""):
     all_source_files = os.listdir(HTML_SRC)
     jinja_files = [f for f in all_source_files if f.endswith(".jinja2")]
     templates = {}
@@ -47,7 +47,7 @@ def build_html(folder_name):
     index_template = Template(index_raw)
 
     with open(f"{folder_name}/index.html", "w") as compiled_index:
-        compiled_index.write( index_template.render(templates=templates))
+        compiled_index.write(index_template.render(templates=templates, prefix=prefix))
         compiled_index.close()
 
 
@@ -133,7 +133,7 @@ def build():
     compile_css_assets(DIST, prefix)
     compile_javascript_assets(DIST, prefix)
     print("Copying HTML and JS.")
-    build_html(DIST)
+    build_html(DIST, prefix)
     copy_data(DIST)
     copy_static_assets()
     generate_version_references(prefix)
