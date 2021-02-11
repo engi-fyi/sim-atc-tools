@@ -43,5 +43,14 @@
       "call_sign": "ALPACA",
       "country": "United Kingdom"
     }
+  ],
+  "PTA": [
+    {
+      "iata_code": "N/A",
+      "icao_code": "PTA",
+      "airline_name": "Platinum Airways",
+      "call_sign": "PLATINUM",
+      "country": "United States"
+    }
   ]
 }
