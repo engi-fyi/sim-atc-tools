@@ -133,25 +133,10 @@ def build():
     compile_css_assets(DIST, prefix)
     compile_javascript_assets(DIST, prefix)
     print("Copying HTML and JS.")
-    build_index(prefix)
+    build_html(DIST)
     copy_data(DIST)
     copy_static_assets()
     generate_version_references(prefix)
-
-
-def build_index(prefix):
-    target_index = f"{DIST}/index.html"
-    copy_file(f"{SRC}/index.html", target_index)
-    f = open(target_index, "rt")
-    data = f.read()
-    f.close()
-
-    data = data.replace("styles.css", f"{prefix}styles.css")
-    data = data.replace("app.js", f"{prefix}app.js")
-
-    f = open(target_index, "wt")
-    f.write(data)
-    f.close()
 
 
 def copy_file(source_file_name, destination_file_name, force_fresh=False):
