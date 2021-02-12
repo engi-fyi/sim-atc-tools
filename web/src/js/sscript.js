@@ -73,6 +73,8 @@ function do_update() {
 				var dT = ((thours*60)+tmins)-((h*60)+m);
 				break;
 			}	
+		// Object Speed / Speed of Sound)
+		// Speed of sound in Air at 0 deg = 331
 
 
 		//calculate speed of Mach 1 at altitude

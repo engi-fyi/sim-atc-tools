@@ -8,19 +8,19 @@
                     <input type="button" class="enroute-calculator-selector clicked" id="add-time" value="Add Time" onclick="activateCalculator(this);" /><b class="button-spacer"></b>
                     <input type="button" class="enroute-calculator-selector" id="add-distance" value="Add Distance" onclick="activateCalculator(this);" /><b class="button-spacer"></b>
                     <input type="button" class="enroute-calculator-selector" id="cross-time" value="Cross Time" onclick="activateCalculator(this);" /><b class="button-spacer lg"></b>
-                    <input type="button" value="Reset" onclick="resetAll();" /><b class="button-spacer"></b>
-                    <input type="button" value="Help" /><b class="button-spacer"></b>
+                    <input type="button" value="Reset" onclick="enrResetAll();" /><b class="button-spacer"></b>
                 </div>
             </div>
             <div class="content">
                 <div class="column">
                     Input<br /><br />
                     <div class="input-inner">
-                        Groundspeed <input class="enr_in" id="enr_in_groundspeed" type="text" /><br />
-                        Flight Level <input class="enr_in" id="enr_in_flight_level" type="text" /><br />
-                        Distance to Fix <input class="enr_in" id="enr_in_dis_to_fix" type="text" /><br />
-                        <span id="enr_label_data_point">Delay Required</span> <input class="enr_in" id="enr_in_data_point" type="text" /><br />
-                        Reported Mach <input class="enr_in" id="enr_in_reported_mach" type="text" />
+                        <!-- https://stackoverflow.com/questions/18543570/how-to-create-tabindex-groups -->
+                        Groundspeed <input class="enr_in" id="enr_in_groundspeed" onchange="enrFieldChange();" type="text" /><br />
+                        Flight Level <input class="enr_in" id="enr_in_flight_level" onchange="enrFieldChange();" type="text" /><br />
+                        Distance to Fix <input class="enr_in" id="enr_in_dis_to_fix" onchange="enrFieldChange();" type="text" /><br />
+                        <span id="enr_label_data_point">Delay Required</span> <input class="enr_in" onchange="enrFieldChange();" id="enr_in_data_point" type="text" /><br />
+                        Reported Mach <input class="enr_in" onchange="enrFieldChange();" id="enr_in_reported_mach" type="text" />
                         <input type="hidden" value="Add Time" id="enr_current_mode" />
                     </div>
                 </div>

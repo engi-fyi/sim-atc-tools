@@ -1,5 +1,4 @@
-
-
+var ENROUTE_CALCULATOR;
 var COUNTDOWN_TIMER;
 
 $(document).ready(function() {
@@ -15,6 +14,7 @@ $(document).ready(function() {
 
     enrResetAll();
     vatSys();
+    ENROUTE_CALCULATOR = new EnrouteCalculator();
 });
 
 function vatSys() {
@@ -51,7 +51,7 @@ async function drawVersion() {
     });
 
     var existingFooter = $("#footer-text").html();
-    var footer = existingFooter + " | Version: " + versionDetails["version"];
+    var footer = existingFooter + " | Version: " + versionDetails["version"] + " (" + versionDetails["data_version"] + ")";
     $("#footer-text").html(footer)
 }
 

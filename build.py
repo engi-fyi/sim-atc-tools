@@ -158,11 +158,18 @@ def copy_file(source_file_name, destination_file_name, force_fresh=False):
 
 
 def generate_version_references(prefix):
-    version = prefix[:-1]
+    data_version = prefix[:-1]
     build_date = datetime.datetime.now()
     build_date = str(build_date.replace(tzinfo=datetime.timezone.utc))
+    version = "v0.0.0"
+
+    with open("VERSION", "r") as v:
+        version = v.read()
+        v.close()
+
     version_details = {
         "build_date": build_date,
+        "data_version": data_version,
         "version": version
     }
 
