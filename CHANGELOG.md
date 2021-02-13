@@ -1,5 +1,9 @@
 # Change Log
 
+### v0.3.7-beta.1 (February 14, 2021)
+
+ - (Web) Updated apply speed to show separation gained (+Separation).
+
 ### v0.3.6-beta.1 (February 14, 2021)
 
  - (Web) Added backend functions for degree/minute calculations.

@@ -94,8 +94,9 @@ class EnrouteCalculator {
         let timeToReach = (this.distanceToFix / this.groundSpeed) * 60;
         let groundSpeed = (this.distanceToFix / (timeToReach + this.dataPoint)) * 60;
         let machSpeed = groundSpeed / EnrouteCalculator.calculateSpeedOfSound(this.flightLevel);
+        let separationGained = this.dataPoint * (this.groundSpeed / 60);
 
-        return new SpeedValues(groundSpeed, machSpeed, -1.00);
+        return new SpeedValues(groundSpeed, machSpeed, separationGained);
     }
 
     // CROSS_TIME / Apply Speed
@@ -108,8 +109,10 @@ class EnrouteCalculator {
     applySpeedCrossTime(mach= true) {
         let groundSpeed = (this.distanceToFix / this.dataPoint) * 60;
         let machSpeed = groundSpeed / EnrouteCalculator.calculateSpeedOfSound(this.flightLevel);
+        let initialTime = (this.distanceToFix / this.groundSpeed) * 60;
+        let separationGained = (this.dataPoint - initialTime) * (this.groundSpeed / 60);
 
-        return new SpeedValues(groundSpeed, machSpeed, -1.00);
+        return new SpeedValues(groundSpeed, machSpeed, separationGained);
     }
 
     prevailingWinds() {
@@ -239,9 +242,7 @@ class EnrouteUI {
     static writeApplySpeed(speedValues) {
          $("#enr_out_mach_number").html(speedValues.machNumber.toFixed(2));
          $("#enr_out_ground_speed").html(Math.round(speedValues.groundSpeed));
-         if (ENROUTE_CALCULATOR.currentMode == ADD_DIST) {
-             $("#enr_out_data_point").html(Math.round(speedValues.changedValue));
-         }
+         $("#enr_out_data_point").html(Math.round(speedValues.changedValue));
     }
 
     static fieldChange() {
@@ -271,26 +272,22 @@ class EnrouteUI {
         if (theButton.val() == ADD_TIME) {
             $("#enr_label_data_point").html("Delay Required");
             $("#enr_current_mode").val(ADD_TIME);
-            EnrouteUI.removeOutDataPoint();
-            //$("#enr_label_out_data_point").html("+Distance: ");
+            EnrouteUI.switchOutDataPointUnit("+Separation: ", "NM");
         } else if (theButton.val() == ADD_DIST) {
             $("#enr_label_data_point").html("Gap Required");
             $("#enr_current_mode").val(ADD_DIST);
-            $("#enr_label_out_data_point").html("+Time");
-            $("#enr_label_out_data_point_unit").html("mins");
-            $("#enr_out_data_point").html("&nbsp;-&nbsp;");
-            //$("#enr_label_out_data_point").html("+Time: ");
+            EnrouteUI.switchOutDataPointUnit("+Time: ", "mins");
         } else if  (theButton.val() == CROSS_TIME) {
             $("#enr_label_data_point").html("Time to Cross");
             $("#enr_current_mode").val(CROSS_TIME);
-            EnrouteUI.removeOutDataPoint();
+            EnrouteUI.switchOutDataPointUnit("+Separation: ", "NM");
         }
     }
 
-    static removeOutDataPoint() {
-         $("#enr_label_out_data_point").html("");
-         $("#enr_label_out_data_point_unit").html("");
-         $("#enr_out_data_point").html("");
+    static switchOutDataPointUnit(label, unit) {
+         $("#enr_label_out_data_point").html(label);
+         $("#enr_label_out_data_point_unit").html(unit);
+         $("#enr_out_data_point").html("&nbsp;-&nbsp;");
     }
 
     static resetAll() {
