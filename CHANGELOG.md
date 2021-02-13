@@ -1,5 +1,11 @@
 # Change Log
 
+### v0.3.4-beta.1 (February 13, 2021)
+
+ - (Web) Apply Speed now working with Enroute Calculator.
+ - (Code) Refactored Enroute JavaScript into classes for UI
+   and Calculator (i.e. View, Controller/Model);
+   
 ### v0.3.3-beta.1 (February 12, 2021)
 
  - (Code) Added `CHANGELOG.md` and `VERSION`.
