@@ -1,12 +1,12 @@
-var ENROUTE_CALCULATOR;
-var COUNTDOWN_TIMER;
+let ENROUTE_CALCULATOR;
+let COUNTDOWN_TIMER;
 
 $(document).ready(function() {
     // lookups
-    drawVersion();
+    drawVersion()
     clearTimer();
-    var modules = ["airline", "airport", "aircraft"];
-    var mm = new ModuleManager(modules);
+    let modules = ["airline", "airport", "aircraft"];
+    let mm = new ModuleManager(modules);
     mm.loadData();
     mm.clearDetails();
     mm.clearInputs();
@@ -15,12 +15,13 @@ $(document).ready(function() {
     enrResetAll();
     vatSys();
     ENROUTE_CALCULATOR = new EnrouteCalculator();
+    restoreUIState();
 });
 
 function vatSys() {
     try {
-        var urlParams = new URLSearchParams(window.location.search);
-        var isVatSys = (urlParams.get("vatsys").toLowerCase() == "true");
+        let urlParams = new URLSearchParams(window.location.search);
+        let isVatSys = (urlParams.get("vatsys").toLowerCase() == "true");
 
         if (isVatSys) {
             console.log("Hiding footer and info-pane.");
@@ -36,35 +37,71 @@ function openInfoPane() {
     $(".ip-large").css("display", "block");
     $(".ip-small").css("display", "none");
     $("#desktop").css("margin-right", "550px")
+    Cookies.set("ip", 1);
 }
 
 function closeInfoPane() {
     $(".ip-large").css("display", "none");
     $(".ip-small").css("display", "block");
     $("#desktop").css("margin-right", "70px")
+    Cookies.set("ip", 0);
 }
 
 async function drawVersion() {
-    versionDetails = await $.ajax({
+    let versionDetails = await $.ajax({
         url: "version.json",
         type: "GET"
     });
 
-    var existingFooter = $("#footer-text").html();
-    var footer = existingFooter + " | Version: " + versionDetails["version"] + " (" + versionDetails["data_version"] + ")";
+    let existingFooter = $("#footer-text").html();
+    let footer = existingFooter + " | Version: " + versionDetails["version"] + " (" + versionDetails["data_version"] + ")";
     $("#footer-text").html(footer)
 }
 
 function menuClicked(buttonIn) {
-    var menuItem = $("#" + buttonIn.id);
-    var toolId = menuItem.val().replaceAll(" ", "-").toLowerCase();
-    var tool = $("#" + toolId)
+    let menuItem = $("#" + buttonIn.id);
+    let toolId = menuItem.val().replaceAll(" ", "-").toLowerCase();
 
     if (menuItem.hasClass("clicked")) {
-        menuItem.removeClass("clicked");
-        tool.css("display", "none");
+        hideTool(buttonIn.id, toolId);
     } else {
-        menuItem.addClass("clicked");
-        tool.css("display", "inline-block");
+        showTool(buttonIn.id, toolId);
+    }
+}
+
+function hideTool(menuId, toolId) {
+    let tool = $("#" + toolId);
+    let menuItem = $("#" + menuId);
+    menuItem.removeClass("clicked");
+    tool.css("display", "none");
+    Cookies.set("menu-" + menuId, 0);
+}
+
+function showTool(menuId, toolId) {
+    let tool = $("#" + toolId);
+    let menuItem = $("#" + menuId);
+    menuItem.addClass("clicked");
+    tool.css("display", "inline-block");
+    Cookies.set("menu-" + menuId, 1);
+}
+
+function restoreUIState() {
+    if (Cookies.get("ip") == 1) {
+        openInfoPane();
+    } else if (Cookies.get("ip") == 0) {
+        closeInfoPane();
+    }
+
+    $(".page-menu").each(restoreToolState);
+}
+
+function restoreToolState(i, buttonIn) {
+    let menuItem = $("#" + buttonIn.id);
+    let toolId = menuItem.val().replaceAll(" ", "-").toLowerCase();
+
+    if (Cookies.get("menu-" + buttonIn.id) == 0) {
+        hideTool(buttonIn.id, toolId);
+    } else if (Cookies.get("menu-" + buttonIn.id) == 1) {
+        showTool(buttonIn.id, toolId)
     }
 }

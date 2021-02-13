@@ -59,6 +59,7 @@ class EnrouteCalculator {
     // 15, 13, 11 2 deg per fl
     // http://www.aerospaceweb.org/question/atmosphere/q0126.shtml
     // https://studyflying.com/isa-temperature-deviation/
+    // https://www.universalweather.com/blog/international-standard-atmosphere-how-it-affects-flight-understanding-the-basics/
     static calculateSpeedOfSound(flightLevel, knots = true) {
         let isaCentigrade = EnrouteCalculator.calculateISATemperature(flightLevel);
         let isaKelvin = isaCentigrade + 273.15;

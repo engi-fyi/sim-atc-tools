@@ -1,5 +1,9 @@
 # Change Log
 
+### v0.3.5-beta.1 (February 13, 2021)
+
+ - (Web) Info Pane and Tools now remember their state between session.
+
 ### v0.3.4-beta.1 (February 13, 2021)
 
  - (Web) Apply Speed now working with Enroute Calculator.
