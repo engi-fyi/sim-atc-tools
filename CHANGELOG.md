@@ -1,8 +1,14 @@
 # Change Log
 
+### v0.3.6-beta.1 (February 14, 2021)
+
+ - (Web) Added backend functions for degree/minute calculations.
+ - (Web) Changed cookies to secure (same-site settings).
+ - (Web) Made reported mach number not required in Enroute Calculator.
+
 ### v0.3.5-beta.1 (February 13, 2021)
 
- - (Web) Info Pane and Tools now remember their state between session.
+ - (Web) Info Pane and Tools now remember their state between sessions.
 
 ### v0.3.4-beta.1 (February 13, 2021)
 

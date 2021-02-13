@@ -37,14 +37,14 @@ function openInfoPane() {
     $(".ip-large").css("display", "block");
     $(".ip-small").css("display", "none");
     $("#desktop").css("margin-right", "550px")
-    Cookies.set("ip", 1);
+    Cookies.set("ip", 1, {sameSite: "None", secure: true});
 }
 
 function closeInfoPane() {
     $(".ip-large").css("display", "none");
     $(".ip-small").css("display", "block");
     $("#desktop").css("margin-right", "70px")
-    Cookies.set("ip", 0);
+    Cookies.set("ip", 0, {sameSite: "None", secure: true});
 }
 
 async function drawVersion() {
@@ -74,7 +74,7 @@ function hideTool(menuId, toolId) {
     let menuItem = $("#" + menuId);
     menuItem.removeClass("clicked");
     tool.css("display", "none");
-    Cookies.set("menu-" + menuId, 0);
+    Cookies.set("menu-" + menuId, 0, {sameSite: "None", secure: true});
 }
 
 function showTool(menuId, toolId) {
@@ -82,7 +82,7 @@ function showTool(menuId, toolId) {
     let menuItem = $("#" + menuId);
     menuItem.addClass("clicked");
     tool.css("display", "inline-block");
-    Cookies.set("menu-" + menuId, 1);
+    Cookies.set("menu-" + menuId, 1, {sameSite: "None", secure: true});
 }
 
 function restoreUIState() {

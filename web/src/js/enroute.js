@@ -38,7 +38,7 @@ class EnrouteCalculator {
 
     validateValues() {
         if (this.groundSpeed > 100 && this.flightLevel < 650 &&
-            this.distanceToFix > 100 && (this.reportedMach < 5 || this.reportedMach == 0)
+            this.distanceToFix > 100 && (this.reportedMach < 5 || this.reportedMach === 0) & !isNaN(this.dataPoint)
         ) {
             return true;
         } else {
@@ -107,15 +107,102 @@ class EnrouteCalculator {
     // If 4 digits count as a timestamp.
     applySpeedCrossTime(mach= true) {
         let groundSpeed = (this.distanceToFix / this.dataPoint) * 60;
-        let machSpeed = groundSpeed / EnrouteCalculator.calculateSpeedOfSound(this.flight_level);
+        let machSpeed = groundSpeed / EnrouteCalculator.calculateSpeedOfSound(this.flightLevel);
 
         return new SpeedValues(groundSpeed, machSpeed, -1.00);
     }
 
-    prevailingWinds(ground_speed, reported_mach_number, flight_level) {
-        let trueAirSpeed = this.reportedMach * EnrouteCalculator.calculateSpeedOfSound(this.flight_level);
+    prevailingWinds() {
+        let trueAirSpeed = this.reportedMach * EnrouteCalculator.calculateSpeedOfSound(this.flightLevel);
         let winds = this.groundSpeed - trueAirSpeed;
         return winds;
+    }
+
+    // Vector to Fix (Time);
+    // Total Distance = Initial Distance + (Extra Time * (Ground Speed / 60));
+    // Vector to Fix (Distance);
+    // Total Distance = Initial Distance + Extra Distance;
+    // Vector to Fix (Cross Time, If > Original)
+    // Same as VTF (Time);
+
+    vectorToFixAddTime() {
+        let results = [];
+        let totalDistance = this.distanceToFix + (this.dataPoint * this.groundSpeed);
+        [10, 20, 30, 40].forEach(function (x) {
+            results.push(EnrouteCalculator.vectorToFix(x, totalDistance));
+        });
+
+        return results;
+	}
+
+	vectorToFixAddDistance() {
+        let results = [];
+        let totalDistance = this.distanceToFix + this.dataPoint;
+        [10, 20, 30, 40].forEach(function (x) {
+            results.push(EnrouteCalculator.vectorToFix(x, totalDistance));
+        });
+
+        return results;
+	}
+
+	vectorToFixCrossTime() {
+        let results = [];
+        let initialTimeToCross = (this.distanceToFix / this.groundSpeed) * 60;
+        let groundSpeedPerMinute = this.groundSpeed / 60;
+        let extraDistance = (this.dataPoint - initialTimeToCross) * groundSpeedPerMinute;
+        [10, 20, 30, 40].forEach(function (x) {
+            if (this.dataPoint < initialTimeToCross) {
+                return [-1, -1, -1, -1];
+            } else {
+                EnrouteCalculator.vectorToFix(x, extraDistance);
+            }
+        });
+
+        return results;
+	}
+
+	static vectorToFix(headingDegree, extraDistance) {
+
+    }
+
+    vectorToReturnAddTime() {
+        let results = [];
+        let totalDistance = this.distanceToFix + (this.dataPoint * this.groundSpeed);
+        [10, 20, 30, 40].forEach(function (x) {
+            results.push(EnrouteCalculator.vectorToReturn(x, totalDistance));
+        });
+
+        return results;
+	}
+
+	vectorToReturnAddDistance() {
+        let results = [];
+        let totalDistance = this.distanceToFix + this.dataPoint;
+        [10, 20, 30, 40].forEach(function (x) {
+            results.push(EnrouteCalculator.vectorToReturn(x, totalDistance));
+        });
+
+        return results;
+	}
+
+	vectorToReturnCrossTime() {
+        let results = [];
+        let initialTimeToCross = (this.distanceToFix / this.groundSpeed) * 60;
+        let groundSpeedPerMinute = this.groundSpeed / 60;
+        let extraDistance = (this.dataPoint - initialTimeToCross) * groundSpeedPerMinute;
+        [10, 20, 30, 40].forEach(function (x) {
+            if (this.dataPoint < initialTimeToCross) {
+                return [-1, -1, -1, -1];
+            } else {
+                EnrouteCalculator.vectorToReturn(x, extraDistance);
+            }
+        });
+
+        return results;
+	}
+
+	static vectorToReturn(headingDegree, extraDistance) {
+
     }
 }
 
@@ -163,7 +250,14 @@ class EnrouteUI {
         ENROUTE_CALCULATOR.flightLevel = parseInt($("#enr_in_flight_level").val());
         ENROUTE_CALCULATOR.distanceToFix = parseInt($("#enr_in_dis_to_fix").val());
         ENROUTE_CALCULATOR.dataPoint = parseInt($("#enr_in_data_point").val());
-        ENROUTE_CALCULATOR.reportedMach = parseFloat($("#enr_in_reported_mach").val());
+        let reportedMach = parseFloat($("#enr_in_reported_mach").val());
+
+        if (isNaN(reportedMach)) {
+            ENROUTE_CALCULATOR.reportedMach = 0;
+        } else {
+            ENROUTE_CALCULATOR.reportedMach = reportedMach;
+        }
+
         EnrouteUI.calculate();
     }
 
