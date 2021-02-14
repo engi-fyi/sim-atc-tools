@@ -1,5 +1,10 @@
 # Change Log
 
+### v0.3.8-beta.1 (February 14, 2021)
+
+ - (Web) Implemented Vector -> Direct Fix function.
+ - (Web) Updated Vector -> Direct Fix styling to match single value.
+
 ### v0.3.7-beta.1 (February 14, 2021)
 
  - (Web) Updated apply speed to show separation gained (+Separation).

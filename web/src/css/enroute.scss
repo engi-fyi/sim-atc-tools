@@ -41,6 +41,17 @@
   }
 }
 
+.enr_label_out_vector_fix {
+  color: $primary-color;
+  font-size: 1.2em;
+  padding-top: 10px;
+}
+
+.enr_out_vector_fix {
+  padding-bottom: 10px;
+  font-size: 2em;
+}
+
 #enr_out_mach_number {
   border: 3px solid $primary-color;
   padding: 5px;
