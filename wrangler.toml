@@ -1,9 +1,0 @@
-name = "sim-atc"
-type = "javascript"
-account_id = "1d5572d33c3dd86e9fabafef3fe0b9ec"
-route = "sim-atc.com/*"
-zone_id = "20b3fa4f61ae4d35e0ad0518e914c3b3"
-
-[site]
-bucket = "./web/dist"
-entry-point = "workers-site"
