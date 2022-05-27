@@ -1,0 +1,84 @@
+    <div class="tool" id="enroute-assistant">
+        <div class="window window-tool">
+            <div class="title">
+                Enroute Assistant &#9432;
+            </div>
+            <div class="content">
+                <div class="line tool-menu">
+                    <input type="button" class="enroute-calculator-selector clicked" id="add-time" value="Add Time" onclick="activateCalculator(this);" /><b class="button-spacer"></b>
+                    <input type="button" class="enroute-calculator-selector" id="add-distance" value="Add Distance" onclick="activateCalculator(this);" /><b class="button-spacer"></b>
+                    <input type="button" class="enroute-calculator-selector" id="cross-time" value="Cross Time" onclick="activateCalculator(this);" /><b class="button-spacer lg"></b>
+                    <input type="button" value="Reset" onclick="enrResetAll();" /><b class="button-spacer"></b>
+                </div>
+            </div>
+            <div class="content">
+                <div class="column">
+                    Input<br /><br />
+                    <div class="input-inner">
+                        <!-- https://stackoverflow.com/questions/18543570/how-to-create-tabindex-groups -->
+                        Groundspeed <input class="enr_in" id="enr_in_groundspeed" onchange="enrFieldChange();" type="text" /><br />
+                        Flight Level <input class="enr_in" id="enr_in_flight_level" onchange="enrFieldChange();" type="text" /><br />
+                        Distance to Fix <input class="enr_in" id="enr_in_dis_to_fix" onchange="enrFieldChange();" type="text" /><br />
+                        <span id="enr_label_data_point">Delay Required</span> <input class="enr_in" onchange="enrFieldChange();" id="enr_in_data_point" type="text" /><br />
+                        Reported Mach <input class="enr_in" onchange="enrFieldChange();" id="enr_in_reported_mach" type="text" />
+                        <input type="hidden" value="Add Time" id="enr_current_mode" />
+                    </div>
+                </div>
+                <div class="column">
+                    Apply Speed<br /><br />
+                    <div class="output enroute-container">
+                        <h1>Mach <b class="enr_out" id="enr_out_mach_number">&nbsp;-&nbsp;</b></h1>
+                        <br />
+                        <table>
+                            <tr>
+                                <th>Ground Speed: </th>
+                                <td class="enr_out" id="enr_out_ground_speed">&nbsp;-&nbsp;</td>
+                                <td>kts</td>
+                            </tr>
+                            <tr id="enr_container_out_data_point">
+                                <th id="enr_label_out_data_point">+Separation: </th>
+                                <td class="enr_out" id="enr_out_data_point"></td>
+                                <td id="enr_label_out_data_point_unit">NM</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="column">
+                    Vector then Direct Fix<br /><br />
+                    <div class="output enroute-container direction-time">
+                        <div class="enr_label_out_vector_fix">Add</div>
+                        <div class="enr_out enr_out_vector_fix" id="enr_out_vector_fix_degrees">&nbsp;-&nbsp;</div>
+                        <div class="enr_label_out_vector_fix">for</div>
+                        <div class="enr_out enr_out_vector_fix" id="enr_label_out_vector_fix_time">&nbsp;-&nbsp;</div>
+                    </div>
+                </div>
+                <div class="column">
+                    Vector then Track Return<br /><br />
+                    <div class="output enroute-container direction-time">
+                        <table>
+                            <tr>
+                                <th>Turn</th>
+                                <th>Mins</th>
+                            </tr>
+                            <tr>
+                                <td>10&#176;</td>
+                                <td class="enr_out">65.8</td>
+                            </tr>
+                            <tr>
+                                <td>20&#176;</td>
+                                <td class="enr_out">16.6</td>
+                            </tr>
+                            <tr>
+                                <td>30&#176;</td>
+                                <td class="enr_out">7.5</td>
+                            </tr>
+                            <tr>
+                                <td>40&#176;</td>
+                                <td class="enr_out">3.4</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,12 +1,3 @@
-$primary-color: #600000;
-$background-color: #A0AAAA;
-$input-text-color: #3b3b3b;
-$font: Consolas, sans-serif;
-$button-text: rgb(0, 0, 96);
-$button-down: rgb(130, 146, 146);
-$button-border-top: rgb(102, 102, 102);
-$button-border-bottom: white;
-
 input[type=button] {
     border-bottom-color: $button-border-top;
     border-right-color: $button-border-top;
@@ -14,7 +5,7 @@ input[type=button] {
     border-left-color: white;
     padding: 3px 3px 3px 3px;
     flex: 1 1 auto;
-    background-color: $background-color;;
+    background-color: $background-color;
     color: $button-text;
     border-top-width: 3px;
     border-left-width: 3px;

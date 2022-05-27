@@ -1,0 +1,64 @@
+    <div class="tool" id="wake-turbulence-timer">
+        <div class="window window-tool">
+            <div class="title">
+                Wake Turbulence Timer &#9432;
+            </div>
+            <div class="content">
+                <div class="line">
+                    Departing Aircraft
+                </div>
+            </div>
+            <div class="content">
+                <div class="line">
+                    <input class="departing" id="departing_light" onClick="timerButtonClicked(this);" type="button"
+                           value="Light"/>
+                    <b class="button-spacer">&nbsp;</b>
+                    <input class="departing" id="departing_medium" onClick="timerButtonClicked(this);" type="button"
+                           value="Medium"/>
+                    <b class="button-spacer">&nbsp;</b>
+                    <input class="departing" id="departing_heavy" onClick="timerButtonClicked(this);" type="button"
+                           value="Heavy"/>
+                    <b class="button-spacer">&nbsp;</b>
+                    <input class="departing" id="departing_super" onClick="timerButtonClicked(this);" type="button"
+                           value="Super"/>
+                    <input id="departing" type="hidden" value=""/>
+                </div>
+            </div>
+            <div class="content">
+                <div class="line">
+                    Waiting Aircraft
+                </div>
+            </div>
+            <div class="content">
+                <div class="line">
+                    <input class="waiting" id="waiting_light" onClick="timerButtonClicked(this);" type="button"
+                           value="Light"/>
+                    <b class="button-spacer">&nbsp;</b>
+                    <input class="waiting" id="waiting_medium" onClick="timerButtonClicked(this);" type="button"
+                           value="Medium"/>
+                    <b class="button-spacer">&nbsp;</b>
+                    <input class="waiting" id="waiting_heavy" onClick="timerButtonClicked(this);" type="button"
+                           value="Heavy"/>
+                    <b class="button-spacer">&nbsp;</b>
+                    <input class="waiting" id="waiting_super" onClick="timerButtonClicked(this);" type="button"
+                           value="Super"/>
+                    <input id="waiting" type="hidden" value=""/>
+                </div>
+            </div>
+            <div class="content">
+                <div class="line">
+                    <br/>
+                    <div class="output timer" id="timer-details" style="width: 98% !important;">
+                        &nbsp;
+                    </div>
+                    <input id="timer-current" type="hidden" value="0"/>
+                </div>
+            </div>
+            <div class="content">
+                <div class="line">
+                    <input class="functional" onclick="clearTimer();" type="button" value="Reset"/>
+                </div>
+            </div>
+
+        </div>
+    </div>

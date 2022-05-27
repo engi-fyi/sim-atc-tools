@@ -39,6 +39,24 @@
     .content {
         width: 100%;
 
+        .column {
+            display: inline-block;
+            width: 24%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            vertical-align: top;
+            height: 100% !important;
+
+            table {
+                th {
+                    text-align: right;
+                }
+                td {
+                    text-align: left;
+                }
+            }
+        }
+
         .line {
             display: flex;
             flex-flow: row;
@@ -46,24 +64,12 @@
             width: auto;
             padding: 10px 10px 10px 10px;
 
-            input[type=text], .output {
-                border-right: 1px solid white;
-                border-top: 2px solid gray;
-                border-bottom: 1px solid white;
-                border-left: 2px solid gray;
-                padding: 2.5px;
-                display: inline-block;
-                background-color: $background-color;
-                font-family: $font;
-                font-size: 14px;
-                color: $button-text;
-                font-weight: bold;
-                flex: 1 1 auto;
-                overflow: auto;
-            }
-
             .button-spacer {
                 width: 5px;
+            }
+
+            .lg {
+                width: 100px !important;
             }
 
             #airport-details {
@@ -83,6 +89,22 @@
     .window-content td {
         padding: 3px;
     }
+}
+
+input[type=text], .output {
+    border-right: 1px solid white;
+    border-top: 2px solid gray;
+    border-bottom: 1px solid white;
+    border-left: 2px solid gray;
+    padding: 2.5px;
+    display: inline-block;
+    font-family: $font;
+    font-size: 14px;
+    color: $button-text;
+    font-weight: bold;
+    flex: 1 1 auto;
+    overflow: auto;
+    background-color: $background-color;
 }
 
 .info-window {
@@ -129,5 +151,9 @@
 .timer {
     text-align: center !important;
     font-size: 30px !important;
+}
+
+.tool-menu {
+    border-bottom: 1px $primary-color solid;
 }
 

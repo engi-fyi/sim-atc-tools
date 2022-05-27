@@ -11,6 +11,7 @@ import datetime
 import json
 
 from pathlib import Path
+from jinja2 import Template
 
 
 DIST = "./web/dist"
@@ -23,14 +24,41 @@ CONFIG = "./config"
 ASSETS = "./web/assets"
 JAVASCRIPT_SRC = "./web/src/js"
 SASS_SRC = "./web/src/css"
+HTML_SRC = "./web/src/html"
+
+
+def build_html(folder_name, prefix=""):
+    all_source_files = os.listdir(HTML_SRC)
+    jinja_files = [f for f in all_source_files if f.endswith(".jinja2")]
+    templates = {}
+    index_raw = ""
+
+    for jinja_file in jinja_files:
+        index_name = jinja_file.replace(".html.jinja2", "")
+
+        with open(f"{HTML_SRC}/{jinja_file}", "r") as jt:
+            templates[index_name] = jt.read()
+            jt.close()
+
+    with open(f"{SRC}/index.html.jinja2", "r") as ir:
+        index_raw = ir.read()
+        ir.close()
+
+    index_template = Template(index_raw)
+
+    with open(f"{folder_name}/index.html", "w") as compiled_index:
+        compiled_index.write(index_template.render(templates=templates, prefix=prefix))
+        compiled_index.close()
 
 
 def compile_css_assets(folder_name, prefix=""):
     all_source_files = os.listdir(SASS_SRC)
     sass_files = ["global.sass", "layout.sass", "styles.sass"]
     full_sass = ""
+    sass_files.sort()  # so variables get processed first
 
     for css_file in sass_files:
+        print(f"Ingesting '{css_file}'.")
         with open(f"{SASS_SRC}/{css_file}", "r") as style:
             full_sass = f"{full_sass}{style.read()}\n"
             style.close()
@@ -62,8 +90,8 @@ def local():
     print("Compiling CSS and Javascript.")
     compile_css_assets(LOCAL)
     compile_javascript_assets(LOCAL)
-    print("Copying HTML.")
-    shutil.copy2(f"{SRC}/index.html", f"{LOCAL}/index.html")
+    print("Building HTML.")
+    build_html(LOCAL)
     print("Copying data files.")
     copy_data(LOCAL)
     print("Web server running.")
@@ -105,25 +133,10 @@ def build():
     compile_css_assets(DIST, prefix)
     compile_javascript_assets(DIST, prefix)
     print("Copying HTML and JS.")
-    build_index(prefix)
+    build_html(DIST, prefix)
     copy_data(DIST)
     copy_static_assets()
     generate_version_references(prefix)
-
-
-def build_index(prefix):
-    target_index = f"{DIST}/index.html"
-    copy_file(f"{SRC}/index.html", target_index)
-    f = open(target_index, "rt")
-    data = f.read()
-    f.close()
-
-    data = data.replace("styles.css", f"{prefix}styles.css")
-    data = data.replace("app.js", f"{prefix}app.js")
-
-    f = open(target_index, "wt")
-    f.write(data)
-    f.close()
 
 
 def copy_file(source_file_name, destination_file_name, force_fresh=False):
@@ -145,11 +158,18 @@ def copy_file(source_file_name, destination_file_name, force_fresh=False):
 
 
 def generate_version_references(prefix):
-    version = prefix[:-1]
+    data_version = prefix[:-1]
     build_date = datetime.datetime.now()
     build_date = str(build_date.replace(tzinfo=datetime.timezone.utc))
+    version = "v0.0.0"
+
+    with open("VERSION", "r") as v:
+        version = v.read()
+        v.close()
+
     version_details = {
         "build_date": build_date,
+        "data_version": data_version,
         "version": version
     }
 
