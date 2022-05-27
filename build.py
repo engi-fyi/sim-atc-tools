@@ -53,7 +53,7 @@ def build_html(folder_name, prefix=""):
 
 def compile_css_assets(folder_name, prefix=""):
     all_source_files = os.listdir(SASS_SRC)
-    sass_files = ["global.sass", "layout.sass", "styles.sass"]
+    sass_files = [f for f in all_source_files if f.endswith(".scss")]
     full_sass = ""
     sass_files.sort()  # so variables get processed first
 
