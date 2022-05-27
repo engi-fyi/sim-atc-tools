@@ -27,7 +27,7 @@ SASS_SRC = "./web/src/css"
 
 def compile_css_assets(folder_name, prefix=""):
     all_source_files = os.listdir(SASS_SRC)
-    sass_files = [f for f in all_source_files if f.endswith(".sass")]
+    sass_files = ["./web/src/css/global.sass", "./web/src/css/layout.sass", "./web/src/css/styles.sass"]
     full_sass = ""
 
     for css_file in sass_files:
