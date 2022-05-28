@@ -1,5 +1,9 @@
 # Change Log
 
+### v0.4.0-beta.1 (May 28, 2022)
+
+ - (Web) Reworked entirety of enroute calculator.
+
 ### v0.3.8-beta.1 (February 14, 2021)
 
  - (Web) Implemented Vector -> Direct Fix function.
