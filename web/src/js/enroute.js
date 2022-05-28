@@ -1,28 +1,155 @@
 const ADD_TIME = "Add Time";
 const ADD_DIST = "Add Distance";
 const CROSS_TIME = "Cross Time";
-const STANDARD_MSL_TEMPERATURE = 15;
 const SPECIFIC_HEAT_RATIO = 1.4;
-const SPECIFIC_GAS_CONSTANT = 287;
+const SPECIFIC_GAS_CONSTANT_FEET = 1718;
 
 
 class SpeedValues {
     constructor(groundSpeed, machNumber, changedValue) {
-        this.groundSpeed = groundSpeed;
-        this.machNumber = machNumber;
-        this.changedValue = changedValue;
+        this.groundSpeed = Math.round(groundSpeed);
+        this.machNumber = machNumber.toFixed(2);
+        this.changedValue = Math.round(changedValue);
     }
 }
 
 class VectorValues {
     constructor(heading, time) {
-        this.heading = heading;
-        this.time = time
+        this.heading = Math.round(heading);
+        this.time = time.toFixed(2);
     }
 }
 
+class Calculations {
+    // https://www.grc.nasa.gov/www/k-12/airplane/sound.html
+    // rgas = 286 ;                /* ft2/sec2 R */
+    // gama = 1.4 ;
+    // a0 = Math.sqrt(gama*rgas*temp) ;
+    static speedOfSoundMiles(altitudeFeet) {
+        let temp = -1
 
-class EnrouteCalculator {
+        if (altitudeFeet > 36152) {
+            temp = 389.98;
+        } else {
+            temp = 518.6 - (3.56 * (altitudeFeet / 1000));
+        }
+
+        let speedFeet = Math.sqrt(SPECIFIC_HEAT_RATIO * SPECIFIC_GAS_CONSTANT_FEET * temp);
+        let speedMiles = speedFeet * 60.0 / 88.0 ;
+        return speedMiles;
+    }
+
+    static speedOfSound(altitudeFeet) {
+        return Calculations.toKnots(Calculations.speedOfSoundMiles(altitudeFeet));
+    }
+
+    static machNumber(altitudeFeet, trueAirSpeed) {
+        let machNumber = trueAirSpeed / Calculations.speedOfSound(altitudeFeet);
+        return machNumber;
+    }
+
+    static trueAirSpeed(altitudeFeet, machNumber) {
+        let tas = Calculations.speedOfSound(altitudeFeet) * machNumber;
+        return tas;
+    }
+
+    static headwindComponent(groundSpeed, trueAirSpeed) {
+        let headwind = trueAirSpeed - groundSpeed;
+        return headwind;
+    }
+
+    static toKnots(milesPerHour) {
+        return (milesPerHour * 0.868976);
+    }
+
+    // This is an isoceles triangle.
+	// https://www.mathsisfun.com/algebra/trig-solving-sss-triangles.html
+    // https://owlcation.com/stem/Everything-About-Triangles-and-More-Isosceles-Equilateral-Scalene-Pythagoras-Sine-and-Cosine
+	static vectorToFix(initialDistance, extraDistance, groundSpeed) {
+        let totalDistance = extraDistance + initialDistance;
+        let time = (totalDistance / (groundSpeed / 60)) / 2;
+        let a = (totalDistance) / 2;
+        let b = a;
+        let c = initialDistance;
+
+        let cosB = ((c * c) + (a * a) - (b * b)) / (2 * c * a);
+        let radiansB = Math.acos(cosB);
+        let vector = radiansB * (180 / Math.PI);
+
+        return new VectorValues(vector, time);
+    }
+}
+
+class TimeAddition {
+    constructor(groundSpeed, altitude, distanceToFix, delayRequired, reportedMach) {
+        this.groundSpeed = groundSpeed;
+        this.altitude = altitude;
+        this.distanceToFix = distanceToFix;
+        this.delayRequired = delayRequired;
+        this.reportedMach = reportedMach;
+    }
+
+    applySpeed() {
+        let existingRunTime = this.distanceToFix / (this.groundSpeed / 60);
+        let trueAirSpeed = Calculations.trueAirSpeed(this.altitude, this.reportedMach);
+        let newRunTime = this.delayRequired + existingRunTime;
+        let newGroundSpeed = (this.distanceToFix / newRunTime) * 60;
+        let newTrueAirSpeed = newGroundSpeed + Calculations.headwindComponent(this.groundSpeed, trueAirSpeed);
+        let newMach = Calculations.machNumber(this.altitude, newTrueAirSpeed);
+        let separationGained = (newRunTime - existingRunTime) * (newGroundSpeed / 60);
+        return new SpeedValues(newGroundSpeed, newMach, separationGained);
+    }
+
+    vectorThenDirectFix() {
+        let groundSpeedPerMinute = this.groundSpeed / 60;
+        let extraDistance = this.delayRequired * groundSpeedPerMinute;
+        return Calculations.vectorToFix(this.distanceToFix, extraDistance, this.groundSpeed);
+    }
+}
+
+try {
+    module.exports.Calculations = Calculations;
+    module.exports.TimeAddition = TimeAddition;
+} catch {}
+
+// const AddDistance = {
+//     "apply_speed": function(distanceToFix, groundSpeed, delayRequired, flightLevel, currentMach) {
+//         let timeToReach = (distanceToFix / groundSpeed) * 60;
+//         console.log("Time to Reach: " + timeToReach);
+//         let trueAirSpeed = Calculations["true_air_speed"](flightLevel * 1000, currentMach);
+//         console.log("True Air Speed: " + trueAirSpeed);
+//         let headwind = Calculations["headwind_component"](groundSpeed, trueAirSpeed);
+//         console.log("Headwind: " + headwind);
+//         let newTimeToFix = timeToReach + delayRequired;
+//         let newGroundSpeed = distanceToFix / newTimeToFix;
+//         let newTrueAirSpeed = newGroundSpeed - headwind;
+//         let newMachSpeed = Calculations["mach_number"](flightLevel * 1000, newTrueAirSpeed)
+//         let separationGained = this.delayRequired * (this.newGroundSpeed / 60);
+
+//         return new SpeedValues(newGroundSpeed, newMachSpeed, separationGained);
+//     },
+//     "vector_then_direct": function() {
+        
+//     },
+//     "vector_then_return": function() {
+        
+//     }
+// }
+
+// const AddCrossTime = {
+//     "apply_speed": function() {
+        
+//     },
+//     "vector_then_direct": function() {
+        
+//     },
+//     "vector_then_return": function() {
+        
+//     }
+// }
+
+
+class EnrouteValues {
     constructor(mode = 0) {
         this.currentMode = mode;
         this.groundSpeed = 0;    // GS
@@ -41,175 +168,16 @@ class EnrouteCalculator {
             return false;
         }
     }
-
-    static calculateISATemperature(flightLevel) {
-        if (flightLevel < 656) {
-            let altitudeFeet =  flightLevel * 100;
-            let altitudeMetres = altitudeFeet / 3.28084;
-            return STANDARD_MSL_TEMPERATURE +  ((altitudeMetres / 1000) * 2);
-        } else {
-            return -65.5;
-        }
-    }
-
-    // 15, 13, 11 2 deg per fl
-    // http://www.aerospaceweb.org/question/atmosphere/q0126.shtml
-    // https://studyflying.com/isa-temperature-deviation/
-    // https://www.universalweather.com/blog/international-standard-atmosphere-how-it-affects-flight-understanding-the-basics/
-    static calculateSpeedOfSound(flightLevel, knots = true) {
-        let isaCentigrade = EnrouteCalculator.calculateISATemperature(flightLevel);
-        let isaKelvin = isaCentigrade + 273.15;
-        let speedOfSoundMetres = Math.sqrt(SPECIFIC_HEAT_RATIO * SPECIFIC_GAS_CONSTANT * isaKelvin);
-        let speedOfSoundFeet = speedOfSoundMetres * 1.94384;
-
-        if (knots) {
-            return speedOfSoundFeet;
-        } else {
-            return speedOfSoundMetres;
-        }
-    }
-
-    // ADD_DISTANCE / Apply Speed
-    // Example Scenario:
-    //      same distance, same time, just gap behind
-    //      60 minutes to travel 500 miles
-    //      60 minutes to travel 450 miles
-    applySpeedDistance(mach=true) {
-        let gappedDistance = this.distanceToFix - this.dataPoint;
-        let initialTime = (this.distanceToFix / this.groundSpeed) * 60;  // time in mins to complete run;
-        let gappedSpeed = (gappedDistance / initialTime) * 60;  // knots per minute for gapped run;
-        let gappedTime = (this.distanceToFix / gappedSpeed) * 60;
-        let extraTime = gappedTime - initialTime;
-        let machSpeed = gappedSpeed / EnrouteCalculator.calculateSpeedOfSound(this.flightLevel);
-
-        return new SpeedValues(gappedSpeed, machSpeed, extraTime);
-    }
-
-    // ADD_TIME / Apply Speed
-    applySpeedTime(mach=true) {
-        let timeToReach = (this.distanceToFix / this.groundSpeed) * 60;
-        let groundSpeed = (this.distanceToFix / (timeToReach + this.dataPoint)) * 60;
-        let machSpeed = groundSpeed / EnrouteCalculator.calculateSpeedOfSound(this.flightLevel);
-        let separationGained = this.dataPoint * (this.groundSpeed / 60);
-
-        return new SpeedValues(groundSpeed, machSpeed, separationGained);
-    }
-
-    // CROSS_TIME / Apply Speed
-    // Note, if this speed is higher than the current speed, vectors and +Distance will be blank.
-    // Otherwise, they will have a value.
-    // NOTE FOR UI IMPLEMENTATION
-    // This is input in minutes, but can input in time in the UI. Can allow either a UTC time or number of minutes.
-    // Basically, if less than 4 digits, count as minutes.
-    // If 4 digits count as a timestamp.
-    applySpeedCrossTime(mach= true) {
-        let groundSpeed = (this.distanceToFix / this.dataPoint) * 60;
-        let machSpeed = groundSpeed / EnrouteCalculator.calculateSpeedOfSound(this.flightLevel);
-        let initialTime = (this.distanceToFix / this.groundSpeed) * 60;
-        let separationGained = (this.dataPoint - initialTime) * (this.groundSpeed / 60);
-
-        return new SpeedValues(groundSpeed, machSpeed, separationGained);
-    }
-
-    prevailingWinds() {
-        let trueAirSpeed = this.reportedMach * EnrouteCalculator.calculateSpeedOfSound(this.flightLevel);
-        return this.groundSpeed - trueAirSpeed;
-    }
-
-    // Vector to Fix (Time);
-    // Total Distance = Initial Distance + (Extra Time * (Ground Speed / 60));
-    // Vector to Fix (Distance);
-    // Total Distance = Initial Distance + Extra Distance;
-    // Vector to Fix (Cross Time, If > Original)
-    // Same as VTF (Time);
-    vectorToFixAddTime() {
-        let groundSpeedPerMinute = this.groundSpeed / 60;
-        let extraDistance = this.dataPoint * groundSpeedPerMinute;
-        return EnrouteCalculator.vectorToFix(this.distanceToFix, extraDistance, this.groundSpeed);
-	}
-
-	vectorToFixAddDistance() {
-        return EnrouteCalculator.vectorToFix(this.distanceToFix, this.dataPoint, this.groundSpeed);
-	}
-
-	vectorToFixCrossTime() {
-        let initialTimeToCross = (this.distanceToFix / this.groundSpeed) * 60;
-        let groundSpeedPerMinute = this.groundSpeed / 60;
-        let extraDistance = (this.dataPoint - initialTimeToCross) * groundSpeedPerMinute;
-        return EnrouteCalculator.vectorToFix(this.distanceToFix, extraDistance, this.groundSpeed);
-	}
-
-	// This is an isoceles triangle.
-	// https://www.mathsisfun.com/algebra/trig-solving-sss-triangles.html
-    // https://owlcation.com/stem/Everything-About-Triangles-and-More-Isosceles-Equilateral-Scalene-Pythagoras-Sine-and-Cosine
-	static vectorToFix(initialDistance, extraDistance, groundSpeed) {
-        let totalDistance = extraDistance + initialDistance;
-        let time = (totalDistance / (groundSpeed / 60)) / 2;
-        let a = (totalDistance) / 2;
-        let b = a;
-        let c = initialDistance;
-
-        let cosB = ((c * c) + (a * a) - (b * b)) / (2 * c * a);
-        let radiansB = Math.acos(cosB);
-        let vector = radiansB * (180 / Math.PI);
-        //let roundedVector = vector - (vector % 10);
-
-        //if ((vector % 10) > 5) {
-        //    roundedVector += 10;
-        //}
-
-        return new VectorValues(vector, time);
-    }
-
-    vectorToReturnAddTime() {
-        let results = [];
-        let totalDistance = this.distanceToFix + (this.dataPoint * this.groundSpeed);
-        [10, 20, 30, 40].forEach(function (x) {
-            results.push(EnrouteCalculator.vectorToReturn(x, totalDistance));
-        });
-
-        return results;
-	}
-
-	vectorToReturnAddDistance() {
-        let results = [];
-        let totalDistance = this.distanceToFix + this.dataPoint;
-        [10, 20, 30, 40].forEach(function (x) {
-            results.push(EnrouteCalculator.vectorToReturn(x, totalDistance));
-        });
-
-        return results;
-	}
-
-	vectorToReturnCrossTime() {
-        let results = [];
-        let initialTimeToCross = (this.distanceToFix / this.groundSpeed) * 60;
-        let groundSpeedPerMinute = this.groundSpeed / 60;
-        let extraDistance = (this.dataPoint - initialTimeToCross) * groundSpeedPerMinute;
-        [10, 20, 30, 40].forEach(function (x) {
-            if (this.dataPoint < initialTimeToCross) {
-                return [-1, -1, -1, -1];
-            } else {
-                EnrouteCalculator.vectorToReturn(x, extraDistance);
-            }
-        });
-
-        return results;
-	}
-
-	static vectorToReturn(headingDegree, extraDistance) {
-
-    }
 }
 
 class EnrouteUI {
      static calculate() {
-        if (ENROUTE_CALCULATOR.validateValues()) {
-            if (ENROUTE_CALCULATOR.currentMode === ADD_TIME) {
+        if (ENROUTE_VALUES.validateValues()) {
+            if (ENROUTE_VALUES.currentMode === ADD_TIME) {
                 return EnrouteUI.addTime();
-            } else if (ENROUTE_CALCULATOR.currentMode === ADD_DIST) {
+            } else if (ENROUTE_VALUES.currentMode === ADD_DIST) {
                 return EnrouteUI.addDistance();
-            } else if (ENROUTE_CALCULATOR.currentMode === CROSS_TIME) {
+            } else if (ENROUTE_VALUES.currentMode === CROSS_TIME) {
                 return EnrouteUI.crossTime();
             } else {
                 return -1;
@@ -218,8 +186,17 @@ class EnrouteUI {
     }
 
     static addTime() {
-        let speedValues = ENROUTE_CALCULATOR.applySpeedTime();
+        let ta = new TimeAddition(
+            ENROUTE_VALUES.groundSpeed, 
+            ENROUTE_VALUES.flightLevel * 1000, 
+            ENROUTE_VALUES.distanceToFix, 
+            ENROUTE_VALUES.changedValue, 
+            ENROUTE_VALUES.reportedMach
+        )
+        let speedValues = ta.applySpeed();
         EnrouteUI.writeApplySpeed(speedValues);
+        let vectorValues = ta.vectorThenDirectFix();
+        EnrouteUI.writeVectorDirect(vectorValues);
 
         if (speedValues.changedValue > 0) {
             let vectorValues = ENROUTE_CALCULATOR.vectorToFixAddTime();
@@ -260,17 +237,17 @@ class EnrouteUI {
     }
 
     static fieldChange() {
-        ENROUTE_CALCULATOR.currentMode = $("#enr_current_mode").val();
-        ENROUTE_CALCULATOR.groundSpeed = parseInt($("#enr_in_groundspeed").val());
-        ENROUTE_CALCULATOR.flightLevel = parseInt($("#enr_in_flight_level").val());
-        ENROUTE_CALCULATOR.distanceToFix = parseInt($("#enr_in_dis_to_fix").val());
-        ENROUTE_CALCULATOR.dataPoint = parseInt($("#enr_in_data_point").val());
+        ENROUTE_VALUES.currentMode = $("#enr_current_mode").val();
+        ENROUTE_VALUES.groundSpeed = parseInt($("#enr_in_groundspeed").val());
+        ENROUTE_VALUES.flightLevel = parseInt($("#enr_in_flight_level").val());
+        ENROUTE_VALUES.distanceToFix = parseInt($("#enr_in_dis_to_fix").val());
+        ENROUTE_VALUES.dataPoint = parseInt($("#enr_in_data_point").val());
         let reportedMach = parseFloat($("#enr_in_reported_mach").val());
 
         if (isNaN(reportedMach)) {
-            ENROUTE_CALCULATOR.reportedMach = 0;
+            ENROUTE_VALUES.reportedMach = 0;
         } else {
-            ENROUTE_CALCULATOR.reportedMach = reportedMach;
+            ENROUTE_VALUES.reportedMach = reportedMach;
         }
 
         EnrouteUI.calculate();
