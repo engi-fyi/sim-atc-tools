@@ -62,7 +62,12 @@ class Calculations {
         return (milesPerHour * 0.868976);
     }
 
-    // This is an isoceles triangle.
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/tan
+    static getTanFromDegrees(degrees) {
+        return Math.tan(degrees * Math.PI / 180);
+      }
+
+    // This is an isoceles triangle with known side lengths.
 	// https://www.mathsisfun.com/algebra/trig-solving-sss-triangles.html
     // https://owlcation.com/stem/Everything-About-Triangles-and-More-Isosceles-Equilateral-Scalene-Pythagoras-Sine-and-Cosine
 	static vectorToFix(initialDistance, extraDistance, groundSpeed) {
@@ -77,6 +82,18 @@ class Calculations {
         let vector = radiansB * (180 / Math.PI);
 
         return new VectorValues(vector, time);
+    }
+
+    // This is an isoceles triangle with known angles.
+    // https://math.stackexchange.com/questions/272151/given-the-base-and-angles-of-an-isosceles-triangle-how-to-find-length-of-the-tw
+    static vectorToTrack(initialDistance, extraDistance, groundSpeed, angle) {
+        let totalDistance = extraDistance + initialDistance;
+        let a = totalDistance;
+        let h = (a / 2) * Calculations.getTanFromDegrees(angle);
+        let b = Math.sqrt(Math.pow(h, 2) + Math.pow(a / 2, 2));
+        let time = (b / (groundSpeed / 60));
+
+        return new VectorValues(angle, time);
     }
 }
 
@@ -105,49 +122,62 @@ class TimeAddition {
         let extraDistance = this.delayRequired * groundSpeedPerMinute;
         return Calculations.vectorToFix(this.distanceToFix, extraDistance, this.groundSpeed);
     }
+
+    vectorToTrack() {
+        let groundSpeedPerMinute = this.groundSpeed / 60;
+        let extraDistance = this.delayRequired * groundSpeedPerMinute;
+        return [
+            Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 10),
+            Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 20),
+            Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 30),
+            Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 40),
+        ]
+    }
 }
+
+/*
+class DistanceAddition {
+    constructor(groundSpeed, altitude, distanceToFix, delayRequired, reportedMach) {
+        this.groundSpeed = groundSpeed;
+        this.altitude = altitude;
+        this.distanceToFix = distanceToFix;
+        this.delayRequired = delayRequired;
+        this.reportedMach = reportedMach;
+    }
+
+    applySpeed() {
+        let existingRunTime = this.distanceToFix / (this.groundSpeed / 60);
+        let trueAirSpeed = Calculations.trueAirSpeed(this.altitude, this.reportedMach);
+        let newRunTime = this.delayRequired + existingRunTime;
+        let newGroundSpeed = (this.distanceToFix / newRunTime) * 60;
+        let newTrueAirSpeed = newGroundSpeed + Calculations.headwindComponent(this.groundSpeed, trueAirSpeed);
+        let newMach = Calculations.machNumber(this.altitude, newTrueAirSpeed);
+        let separationGained = (newRunTime - existingRunTime) * (newGroundSpeed / 60);
+        return new SpeedValues(newGroundSpeed, newMach, separationGained);
+    }
+
+    vectorThenDirectFix() {
+        let groundSpeedPerMinute = this.groundSpeed / 60;
+        let extraDistance = this.delayRequired * groundSpeedPerMinute;
+        return Calculations.vectorToFix(this.distanceToFix, extraDistance, this.groundSpeed);
+    }
+
+    vectorToTrack() {
+        let groundSpeedPerMinute = this.groundSpeed / 60;
+        let extraDistance = this.delayRequired * groundSpeedPerMinute;
+        return [
+            Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 10),
+            Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 20),
+            Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 30),
+            Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 40),
+        ]
+    }
+}*/
 
 try {
     module.exports.Calculations = Calculations;
     module.exports.TimeAddition = TimeAddition;
 } catch {}
-
-// const AddDistance = {
-//     "apply_speed": function(distanceToFix, groundSpeed, delayRequired, flightLevel, currentMach) {
-//         let timeToReach = (distanceToFix / groundSpeed) * 60;
-//         console.log("Time to Reach: " + timeToReach);
-//         let trueAirSpeed = Calculations["true_air_speed"](flightLevel * 1000, currentMach);
-//         console.log("True Air Speed: " + trueAirSpeed);
-//         let headwind = Calculations["headwind_component"](groundSpeed, trueAirSpeed);
-//         console.log("Headwind: " + headwind);
-//         let newTimeToFix = timeToReach + delayRequired;
-//         let newGroundSpeed = distanceToFix / newTimeToFix;
-//         let newTrueAirSpeed = newGroundSpeed - headwind;
-//         let newMachSpeed = Calculations["mach_number"](flightLevel * 1000, newTrueAirSpeed)
-//         let separationGained = this.delayRequired * (this.newGroundSpeed / 60);
-
-//         return new SpeedValues(newGroundSpeed, newMachSpeed, separationGained);
-//     },
-//     "vector_then_direct": function() {
-        
-//     },
-//     "vector_then_return": function() {
-        
-//     }
-// }
-
-// const AddCrossTime = {
-//     "apply_speed": function() {
-        
-//     },
-//     "vector_then_direct": function() {
-        
-//     },
-//     "vector_then_return": function() {
-        
-//     }
-// }
-
 
 class EnrouteValues {
     constructor(mode = 0) {
@@ -190,20 +220,17 @@ class EnrouteUI {
             ENROUTE_VALUES.groundSpeed, 
             ENROUTE_VALUES.flightLevel * 1000, 
             ENROUTE_VALUES.distanceToFix, 
-            ENROUTE_VALUES.changedValue, 
+            ENROUTE_VALUES.dataPoint, 
             ENROUTE_VALUES.reportedMach
         )
         let speedValues = ta.applySpeed();
+        console.log(speedValues);
+        console.log(ta);
         EnrouteUI.writeApplySpeed(speedValues);
         let vectorValues = ta.vectorThenDirectFix();
         EnrouteUI.writeVectorDirect(vectorValues);
-
-        if (speedValues.changedValue > 0) {
-            let vectorValues = ENROUTE_CALCULATOR.vectorToFixAddTime();
-            EnrouteUI.writeVectorDirect(vectorValues);
-        } else {
-            EnrouteUI.resetVectorDirectOutputs();
-        }
+        let allVectorValues = ta.vectorToTrack();
+        EnrouteUI.writeVectorReturn(allVectorValues);
     }
 
     static addDistance() {
@@ -226,7 +253,7 @@ class EnrouteUI {
     }
 
     static writeApplySpeed(speedValues) {
-         $("#enr_out_mach_number").html(speedValues.machNumber.toFixed(2));
+         $("#enr_out_mach_number").html(speedValues.machNumber);
          $("#enr_out_ground_speed").html(Math.round(speedValues.groundSpeed));
          $("#enr_out_data_point").html(Math.round(speedValues.changedValue));
     }
@@ -235,6 +262,14 @@ class EnrouteUI {
          $("#enr_out_vector_fix_degrees").html(Math.round(vectorValues.heading) + "&#176;");
          $("#enr_label_out_vector_fix_time").html(Math.round(vectorValues.time) + " mins");
     }
+
+    static writeVectorReturn(vectorValues) {
+        // enr_out_vector_track_10_degrees
+        $("#enr_out_vector_track_10_degrees").html(Math.round(vectorValues[0].time) + " mins");
+        $("#enr_out_vector_track_20_degrees").html(Math.round(vectorValues[1].time) + " mins");
+        $("#enr_out_vector_track_30_degrees").html(Math.round(vectorValues[2].time) + " mins");
+        $("#enr_out_vector_track_40_degrees").html(Math.round(vectorValues[3].time) + " mins");
+   }
 
     static fieldChange() {
         ENROUTE_VALUES.currentMode = $("#enr_current_mode").val();
@@ -250,7 +285,13 @@ class EnrouteUI {
             ENROUTE_VALUES.reportedMach = reportedMach;
         }
 
-        EnrouteUI.calculate();
+        if (ENROUTE_VALUES.groundSpeed > 0 && 
+            ENROUTE_VALUES.flightLevel > 0 && 
+            ENROUTE_VALUES.distanceToFix > 0 &&
+            ENROUTE_VALUES.dataPoint > 0 &&
+            ENROUTE_VALUES.reportedMach > 0) {
+                EnrouteUI.calculate();
+        }
     }
 
     static activate(inButton) {
