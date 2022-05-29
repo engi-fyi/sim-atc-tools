@@ -65,34 +65,34 @@ class Calculations {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/tan
     static getTanFromDegrees(degrees) {
         return Math.tan(degrees * Math.PI / 180);
-      }
+    }
 
     // This is an isoceles triangle with known side lengths.
 	// https://www.mathsisfun.com/algebra/trig-solving-sss-triangles.html
     // https://owlcation.com/stem/Everything-About-Triangles-and-More-Isosceles-Equilateral-Scalene-Pythagoras-Sine-and-Cosine
+    //
+    // https://www.quora.com/How-do-I-calculate-the-angles-of-an-isosceles-triangle
 	static vectorToFix(initialDistance, extraDistance, groundSpeed) {
         let totalDistance = extraDistance + initialDistance;
         let time = (totalDistance / (groundSpeed / 60)) / 2;
-        let a = (totalDistance) / 2;
-        let b = a;
-        let c = initialDistance;
-
-        let cosB = ((c * c) + (a * a) - (b * b)) / (2 * c * a);
-        let radiansB = Math.acos(cosB);
-        let vector = radiansB * (180 / Math.PI);
+        let a = totalDistance / 2;
+        let b = initialDistance / 2;
+        console.log(a + " " + b);
+        let radians = Math.acos(b / a);
+        let vector = radians * (180 / Math.PI);
+        console.log(radians + " " + vector);
 
         return new VectorValues(vector, time);
     }
 
-    // This is an isoceles triangle with known angles.
-    // https://math.stackexchange.com/questions/272151/given-the-base-and-angles-of-an-isosceles-triangle-how-to-find-length-of-the-tw
+    // https://math.stackexchange.com/questions/1121131/find-base-of-isosceles-triangle-with-side-length-and-angle
     static vectorToTrack(initialDistance, extraDistance, groundSpeed, angle) {
-        let totalDistance = extraDistance + initialDistance;
-        let a = totalDistance;
-        let h = (a / 2) * Calculations.getTanFromDegrees(angle);
-        let b = Math.sqrt(Math.pow(h, 2) + Math.pow(a / 2, 2));
-        let time = (b / (groundSpeed / 60));
-
+        let bisector = angle / 2;
+        let radians = bisector * (Math.PI / 180);
+        let c = ((extraDistance / 2) * Math.sin(radians)) * 2;
+        let totalDistance = initialDistance - c + extraDistance;
+        let initialTime = (initialDistance / (groundSpeed / 60));
+        let time = (totalDistance / (groundSpeed / 60)) - initialTime;
         return new VectorValues(angle, time);
     }
 }
@@ -135,36 +135,73 @@ class TimeAddition {
     }
 }
 
-/*
 class DistanceAddition {
-    constructor(groundSpeed, altitude, distanceToFix, delayRequired, reportedMach) {
+    constructor(groundSpeed, altitude, distanceToFix, extraDistance, reportedMach) {
         this.groundSpeed = groundSpeed;
         this.altitude = altitude;
         this.distanceToFix = distanceToFix;
-        this.delayRequired = delayRequired;
+        this.extraDistance = extraDistance;
         this.reportedMach = reportedMach;
     }
 
     applySpeed() {
         let existingRunTime = this.distanceToFix / (this.groundSpeed / 60);
         let trueAirSpeed = Calculations.trueAirSpeed(this.altitude, this.reportedMach);
-        let newRunTime = this.delayRequired + existingRunTime;
-        let newGroundSpeed = (this.distanceToFix / newRunTime) * 60;
+        let newDistanceToFix = this.distanceToFix - this.extraDistance;
+        let newGroundSpeed = (newDistanceToFix  / existingRunTime) * 60;
         let newTrueAirSpeed = newGroundSpeed + Calculations.headwindComponent(this.groundSpeed, trueAirSpeed);
         let newMach = Calculations.machNumber(this.altitude, newTrueAirSpeed);
-        let separationGained = (newRunTime - existingRunTime) * (newGroundSpeed / 60);
+        let separationGained = (this.extraDistance / newGroundSpeed) * 60;
         return new SpeedValues(newGroundSpeed, newMach, separationGained);
     }
 
     vectorThenDirectFix() {
+        return Calculations.vectorToFix(this.distanceToFix, this.extraDistance, this.groundSpeed);
+    }
+
+    vectorToTrack() {
+        return [
+            Calculations.vectorToTrack(this.distanceToFix, this.extraDistance, this.groundSpeed, 10),
+            Calculations.vectorToTrack(this.distanceToFix, this.extraDistance, this.groundSpeed, 20),
+            Calculations.vectorToTrack(this.distanceToFix, this.extraDistance, this.groundSpeed, 30),
+            Calculations.vectorToTrack(this.distanceToFix, this.extraDistance, this.groundSpeed, 40),
+        ]
+    }
+}
+
+class SpecifyCrossTime {
+    constructor(groundSpeed, altitude, distanceToFix, newRunTime, reportedMach) {
+        this.groundSpeed = groundSpeed;
+        this.altitude = altitude;
+        this.distanceToFix = distanceToFix;
+        this.newRunTime = newRunTime;
+        this.reportedMach = reportedMach;
+    }
+
+    applySpeed() {
+        let existingRunTime = this.distanceToFix / (this.groundSpeed / 60);
+        let trueAirSpeed = Calculations.trueAirSpeed(this.altitude, this.reportedMach);
+        let newGroundSpeed = (this.distanceToFix / this.newRunTime) * 60;
+        let newTrueAirSpeed = newGroundSpeed + Calculations.headwindComponent(this.groundSpeed, trueAirSpeed);
+        let newMach = Calculations.machNumber(this.altitude, newTrueAirSpeed);
+        let separationGained = (this.newRunTime - existingRunTime) * (newGroundSpeed / 60);
+        return new SpeedValues(newGroundSpeed, newMach, separationGained);
+    }
+
+    vectorThenDirectFix() {
+        let existingRunTime = this.distanceToFix / (this.groundSpeed / 60);
+        let delayRequired = this.newRunTime - existingRunTime;
         let groundSpeedPerMinute = this.groundSpeed / 60;
-        let extraDistance = this.delayRequired * groundSpeedPerMinute;
+        let extraDistance = delayRequired * groundSpeedPerMinute;
+        console.log("Extra Distance: " + extraDistance);
         return Calculations.vectorToFix(this.distanceToFix, extraDistance, this.groundSpeed);
     }
 
     vectorToTrack() {
+        let existingRunTime = this.distanceToFix / (this.groundSpeed / 60);
+        let delayRequired = this.newRunTime - existingRunTime;
         let groundSpeedPerMinute = this.groundSpeed / 60;
-        let extraDistance = this.delayRequired * groundSpeedPerMinute;
+        let extraDistance = delayRequired * groundSpeedPerMinute;
         return [
             Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 10),
             Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 20),
@@ -172,11 +209,13 @@ class DistanceAddition {
             Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 40),
         ]
     }
-}*/
+}
 
 try {
     module.exports.Calculations = Calculations;
     module.exports.TimeAddition = TimeAddition;
+    module.exports.DistanceAddition = DistanceAddition;
+    module.exports.SpecifyCrossTime = SpecifyCrossTime;
 } catch {}
 
 class EnrouteValues {
@@ -202,20 +241,20 @@ class EnrouteValues {
 
 class EnrouteUI {
      static calculate() {
-        if (ENROUTE_VALUES.validateValues()) {
-            if (ENROUTE_VALUES.currentMode === ADD_TIME) {
-                return EnrouteUI.addTime();
-            } else if (ENROUTE_VALUES.currentMode === ADD_DIST) {
-                return EnrouteUI.addDistance();
-            } else if (ENROUTE_VALUES.currentMode === CROSS_TIME) {
-                return EnrouteUI.crossTime();
-            } else {
-                return -1;
-            }
+        console.log("Current Mode: " + ENROUTE_VALUES.currentMode);
+        if (ENROUTE_VALUES.currentMode === ADD_TIME) {
+            return EnrouteUI.addTime();
+        } else if (ENROUTE_VALUES.currentMode === ADD_DIST) {
+            return EnrouteUI.addDistance();
+        } else if (ENROUTE_VALUES.currentMode === CROSS_TIME) {
+            return EnrouteUI.crossTime();
+        } else {
+            return -1;
         }
     }
 
     static addTime() {
+        console.log("Calculating 'Add Time'.");
         let ta = new TimeAddition(
             ENROUTE_VALUES.groundSpeed, 
             ENROUTE_VALUES.flightLevel * 1000, 
@@ -224,8 +263,6 @@ class EnrouteUI {
             ENROUTE_VALUES.reportedMach
         )
         let speedValues = ta.applySpeed();
-        console.log(speedValues);
-        console.log(ta);
         EnrouteUI.writeApplySpeed(speedValues);
         let vectorValues = ta.vectorThenDirectFix();
         EnrouteUI.writeVectorDirect(vectorValues);
@@ -234,22 +271,37 @@ class EnrouteUI {
     }
 
     static addDistance() {
-        let speedValues = ENROUTE_CALCULATOR.applySpeedDistance();
+        console.log("Calculating 'Add Distance'.");
+        let da = new DistanceAddition(
+            ENROUTE_VALUES.groundSpeed, 
+            ENROUTE_VALUES.flightLevel * 1000, 
+            ENROUTE_VALUES.distanceToFix, 
+            ENROUTE_VALUES.dataPoint, 
+            ENROUTE_VALUES.reportedMach
+        )
+        let speedValues = da.applySpeed();
         EnrouteUI.writeApplySpeed(speedValues);
-        let vectorValues = ENROUTE_CALCULATOR.vectorToFixAddDistance();
+        let vectorValues = da.vectorThenDirectFix();
         EnrouteUI.writeVectorDirect(vectorValues);
+        let allVectorValues = da.vectorToTrack();
+        EnrouteUI.writeVectorReturn(allVectorValues);
     }
 
     static crossTime() {
-        let speedValues = ENROUTE_CALCULATOR.applySpeedCrossTime();
+        console.log("Calculating 'Cross Time'.");
+        let ct = new SpecifyCrossTime(
+            ENROUTE_VALUES.groundSpeed, 
+            ENROUTE_VALUES.flightLevel * 1000, 
+            ENROUTE_VALUES.distanceToFix, 
+            ENROUTE_VALUES.dataPoint, 
+            ENROUTE_VALUES.reportedMach
+        )
+        let speedValues = ct.applySpeed();
         EnrouteUI.writeApplySpeed(speedValues);
-
-        if (speedValues.changedValue > 0) {
-            let vectorValues = ENROUTE_CALCULATOR.vectorToFixCrossTime();
-            EnrouteUI.writeVectorDirect(vectorValues);
-        } else {
-            EnrouteUI.resetVectorDirectOutputs();
-        }
+        let vectorValues = ct.vectorThenDirectFix();
+        EnrouteUI.writeVectorDirect(vectorValues);
+        let allVectorValues = ct.vectorToTrack();
+        EnrouteUI.writeVectorReturn(allVectorValues);
     }
 
     static writeApplySpeed(speedValues) {
@@ -264,7 +316,6 @@ class EnrouteUI {
     }
 
     static writeVectorReturn(vectorValues) {
-        // enr_out_vector_track_10_degrees
         $("#enr_out_vector_track_10_degrees").html(Math.round(vectorValues[0].time) + " mins");
         $("#enr_out_vector_track_20_degrees").html(Math.round(vectorValues[1].time) + " mins");
         $("#enr_out_vector_track_30_degrees").html(Math.round(vectorValues[2].time) + " mins");
@@ -291,6 +342,8 @@ class EnrouteUI {
             ENROUTE_VALUES.dataPoint > 0 &&
             ENROUTE_VALUES.reportedMach > 0) {
                 EnrouteUI.calculate();
+        } else {
+            console.log("Not all values filled in, skipping calculation.")
         }
     }
 

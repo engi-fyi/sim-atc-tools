@@ -1,8 +1,11 @@
 # Change Log
 
-### v0.4.0-beta.1 (May 28, 2022)
+### v0.4.0-beta.2 (May 28, 2022)
 
  - (Web) Reworked entirety of enroute calculator.
+ - (Web) Implemented "Add Time".
+ - (Web) Implemented "Add Distance".
+ - (Web) Implemented "Cross Time".
 
 ### v0.3.8-beta.1 (February 14, 2021)
 
