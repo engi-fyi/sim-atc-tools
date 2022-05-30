@@ -79,20 +79,19 @@ class Calculations {
         let b = initialDistance / 2;
         let radians = Math.acos(b / a);
         let vector = radians * (180 / Math.PI);
-        console.log(radians + " " + vector);
 
         return new VectorValues(vector, time);
     }
 
     // https://www.mathematics-monster.com/lessons/using_the_cosine_function_to_find_the_hypotenuse.html
-    static vectorToTrack(initialDistance, extraDistance, groundSpeed, angle) {
-        let radians = angle * (Math.PI / 180);
-        let adjacent = (initialDistance + extraDistance) / 2;
-        let cosine = Math.cos(radians);
-        let hypotenuse = adjacent / cosine;
-        let time = hypotenuse / (groundSpeed / 60);
-        return new VectorValues(angle, time);
-    }
+    // static vectorToTrack(initialDistance, extraDistance, groundSpeed, angle) {
+    //     let radians = angle * (Math.PI / 180);
+    //     let adjacent = (initialDistance + extraDistance) / 2;
+    //     let cosine = Math.cos(radians);
+    //     let hypotenuse = adjacent / cosine;
+    //     let time = hypotenuse / (groundSpeed / 60);
+    //     return new VectorValues(angle, time);
+    // }
 }
 
 class TimeAddition {
@@ -123,13 +122,8 @@ class TimeAddition {
 
     vectorToTrack() {
         let groundSpeedPerMinute = this.groundSpeed / 60;
-        let extraDistance = this.delayRequired * groundSpeedPerMinute;
-        return [
-            Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 10),
-            Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 20),
-            Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 30),
-            Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 40),
-        ]
+        let delayDistance = this.delayRequired * groundSpeedPerMinute;
+        return Calculations.vectorToFix(delayDistance, delayDistance, this.groundSpeed);
     }
 }
 
@@ -158,12 +152,7 @@ class DistanceAddition {
     }
 
     vectorToTrack() {
-        return [
-            Calculations.vectorToTrack(this.distanceToFix, this.extraDistance, this.groundSpeed, 10),
-            Calculations.vectorToTrack(this.distanceToFix, this.extraDistance, this.groundSpeed, 20),
-            Calculations.vectorToTrack(this.distanceToFix, this.extraDistance, this.groundSpeed, 30),
-            Calculations.vectorToTrack(this.distanceToFix, this.extraDistance, this.groundSpeed, 40),
-        ]
+        return Calculations.vectorToFix(this.extraDistance, this.extraDistance, this.groundSpeed);
     }
 }
 
@@ -200,12 +189,7 @@ class SpecifyCrossTime {
         let delayRequired = this.newRunTime - existingRunTime;
         let groundSpeedPerMinute = this.groundSpeed / 60;
         let extraDistance = delayRequired * groundSpeedPerMinute;
-        return [
-            Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 10),
-            Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 20),
-            Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 30),
-            Calculations.vectorToTrack(this.distanceToFix, extraDistance, this.groundSpeed, 40),
-        ]
+        return Calculations.vectorToFix(extraDistance, extraDistance, this.groundSpeed);
     }
 }
 
@@ -309,15 +293,13 @@ class EnrouteUI {
     }
 
     static writeVectorDirect(vectorValues) {
-         $("#enr_out_vector_fix_degrees").html(Math.round(vectorValues.heading) + "&#176;");
-         $("#enr_label_out_vector_fix_time").html(Math.round(vectorValues.time) + " mins");
+        $("#enr_out_vector_fix_degrees").html(Math.round(vectorValues.heading) + "&#176;");
+        $("#enr_label_out_vector_fix_time").html(Math.round(vectorValues.time) + " mins");
     }
 
     static writeVectorReturn(vectorValues) {
-        $("#enr_out_vector_track_10_degrees").html(Math.round(vectorValues[0].time) + " mins");
-        $("#enr_out_vector_track_20_degrees").html(Math.round(vectorValues[1].time) + " mins");
-        $("#enr_out_vector_track_30_degrees").html(Math.round(vectorValues[2].time) + " mins");
-        $("#enr_out_vector_track_40_degrees").html(Math.round(vectorValues[3].time) + " mins");
+        $("#enr_out_vector_track_degrees").html(Math.round(vectorValues.heading) + "&#176;");
+        $("#enr_label_out_vector_track_time").html(Math.round(vectorValues.time) + " mins");
    }
 
     static fieldChange() {
