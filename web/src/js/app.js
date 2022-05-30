@@ -1,4 +1,4 @@
-let ENROUTE_CALCULATOR;
+let ENROUTE_VALUES;
 let COUNTDOWN_TIMER;
 
 $(document).ready(function() {
@@ -14,7 +14,7 @@ $(document).ready(function() {
 
     enrResetAll();
     vatSys();
-    ENROUTE_CALCULATOR = new EnrouteCalculator();
+    ENROUTE_VALUES = new EnrouteValues();
     restoreUIState();
 });
 
