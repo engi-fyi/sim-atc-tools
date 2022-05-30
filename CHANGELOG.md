@@ -1,5 +1,9 @@
 # Change Log
 
+### v0.4.2-beta.2 (May 28, 2022)
+
+ - (Web) Disable Vector than Track Return
+
 ### v0.4.1-beta.2 (May 28, 2022)
 
  - (Web) Fixed Vector then Track Return logic to be actually correct.
