@@ -84,7 +84,6 @@ class Calculations {
         return new VectorValues(vector, time);
     }
 
-    // https://math.stackexchange.com/questions/1121131/find-base-of-isosceles-triangle-with-side-length-and-angle
     // https://www.mathematics-monster.com/lessons/using_the_cosine_function_to_find_the_hypotenuse.html
     static vectorToTrack(initialDistance, extraDistance, groundSpeed, angle) {
         let radians = angle * (Math.PI / 180);
