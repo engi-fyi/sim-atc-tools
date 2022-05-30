@@ -1,5 +1,9 @@
 # Change Log
 
+### v0.4.1-beta.2 (May 28, 2022)
+
+ - (Web) Fixed Vector then Track Return logic to be actually correct.
+
 ### v0.4.0-beta.2 (May 28, 2022)
 
  - (Web) Reworked entirety of enroute calculator.

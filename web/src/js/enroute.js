@@ -77,7 +77,6 @@ class Calculations {
         let time = (totalDistance / (groundSpeed / 60)) / 2;
         let a = totalDistance / 2;
         let b = initialDistance / 2;
-        console.log(a + " " + b);
         let radians = Math.acos(b / a);
         let vector = radians * (180 / Math.PI);
         console.log(radians + " " + vector);
@@ -86,13 +85,13 @@ class Calculations {
     }
 
     // https://math.stackexchange.com/questions/1121131/find-base-of-isosceles-triangle-with-side-length-and-angle
+    // https://www.mathematics-monster.com/lessons/using_the_cosine_function_to_find_the_hypotenuse.html
     static vectorToTrack(initialDistance, extraDistance, groundSpeed, angle) {
-        let bisector = angle / 2;
-        let radians = bisector * (Math.PI / 180);
-        let c = ((extraDistance / 2) * Math.sin(radians)) * 2;
-        let totalDistance = initialDistance - c + extraDistance;
-        let initialTime = (initialDistance / (groundSpeed / 60));
-        let time = (totalDistance / (groundSpeed / 60)) - initialTime;
+        let radians = angle * (Math.PI / 180);
+        let adjacent = (initialDistance + extraDistance) / 2;
+        let cosine = Math.cos(radians);
+        let hypotenuse = adjacent / cosine;
+        let time = hypotenuse / (groundSpeed / 60);
         return new VectorValues(angle, time);
     }
 }
