@@ -52,5 +52,14 @@
       "call_sign": "PLATINUM",
       "country": "United States"
     }
+  ],
+  "TAA": [
+    {
+      "iata_code": "TN",
+      "icao_code": "TAA",
+      "airline_name": "Trans Australian Airlines",
+      "call_sign": "TRANSAIR",
+      "country": "Australia"
+    }
   ]
 }
