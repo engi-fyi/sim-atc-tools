@@ -61,5 +61,14 @@
       "call_sign": "TRANSAIR",
       "country": "Australia"
     }
+  ],
+  "TFX": [
+    {
+      "iata_code": "",
+      "icao_code": "TFX",
+      "airline_name": "Toll Aviation",
+      "call_sign": "TOLL EXPRESS",
+      "country": "Australia"
+    }
   ]
 }
