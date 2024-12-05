@@ -70,5 +70,50 @@
       "call_sign": "TOLL EXPRESS",
       "country": "Australia"
     }
-  ]
+  ],
+  "FD": [
+    {
+      "iata_code": "N/A",
+      "icao_code": "FD",
+      "airline_name": "Royal Flying Doctors",
+      "call_sign": "FLY DOC",
+      "country": "Australia"
+    }
+  ],
+  "AM": [
+    {
+      "iata_code": "N/A",
+      "icao_code": "AM",
+      "airline_name": "New South Whales Ambulance",
+      "call_sign": "Ambulance",
+      "country": "Australia"
+    }
+  ],
+  "LRI": [
+    {
+      "iata_code": "l9",
+      "icao_code": "LRI",
+      "airline_name": "Laridia Airlines",
+      "call_sign": "Laridia",
+      "country": "France"
+    }
+  ],
+  "SH": [
+    {
+      "iata_code": "",
+      "icao_code": "SH",
+      "airline_name": "Sharp",
+      "call_sign": "Sharp",
+      "country": "Australia"
+    }
+  ],
+  "BVX": [
+    {
+      "iata_code": "",
+      "icao_code": "BVX",
+      "airline_name": "Osprey",
+      "call_sign": "Osprey",
+      "country": "United-Kingdom"
+    }
+  ],
 }
