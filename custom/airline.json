@@ -67,7 +67,7 @@
       "iata_code": "",
       "icao_code": "TFX",
       "airline_name": "Toll Aviation",
-      "call_sign": "TOLL EXPRESS",
+      "call_sign": "TEAM AIR",
       "country": "Australia"
     }
   ],
@@ -85,7 +85,7 @@
       "iata_code": "N/A",
       "icao_code": "AM",
       "airline_name": "New South Whales Ambulance",
-      "call_sign": "Ambulance",
+      "call_sign": "AMBULANCE",
       "country": "Australia"
     }
   ],
@@ -94,7 +94,7 @@
       "iata_code": "l9",
       "icao_code": "LRI",
       "airline_name": "Laridia Airlines",
-      "call_sign": "Laridia",
+      "call_sign": "LARIDIA",
       "country": "France"
     }
   ],
@@ -103,7 +103,7 @@
       "iata_code": "",
       "icao_code": "SH",
       "airline_name": "Sharp",
-      "call_sign": "Sharp",
+      "call_sign": "SHARP",
       "country": "Australia"
     }
   ],
@@ -112,8 +112,134 @@
       "iata_code": "",
       "icao_code": "BVX",
       "airline_name": "Osprey",
-      "call_sign": "Osprey",
+      "call_sign": "OPSREY",
       "country": "United-Kingdom"
     }
   ],
+  "SKP": [
+    {
+      "iata_code": "QN",
+      "icao_code": "SKP",
+      "airline_name": "SKY TRANS",
+      "call_sign": "SKY TRANS",
+      "country": "Australia"
+    }
+  ],
+  "NV": [
+    {
+      "iata_code": "NV",
+      "icao_code": "N/A",
+      "airline_name": "Nav Air",
+      "call_sign": "NAV AIR",
+      "country": "Australia"
+    }
+  ],
+  "HK": [
+    {
+      "iata_code": "HK",
+      "icao_code": "N/A",
+      "airline_name": "Skippers Aviation",
+      "call_sign": "SKIPY",
+      "country": "Australia"
+    }
+  ],
+  "MB": [
+    {
+      "iata_code": "KN",
+      "icao_code": "MB",
+      "airline_name": "Maroomba",
+      "call_sign": "MAROOMBA",
+      "country": "United-Kingdom"
+    }
+  ],
+  "CT": [
+    {
+      "iata_code": "GD",
+      "icao_code": "CT",
+      "airline_name": "Nexus",
+      "call_sign": "CONNECT",
+      "country": "Australia"
+    }
+  ],
+  "SND": [
+    {
+      "iata_code": "SND",
+      "icao_code": "SND",
+      "airline_name": "Sky Traders",
+      "call_sign": "SNOW BIRD",
+      "country": "Australia"
+    }
+  ],
+  "PHA": [
+    {
+      "iata_code": "PH",
+      "icao_code": "PHA",
+      "airline_name": "ASL airlines (formally: PION air)",
+      "call_sign": "PARSEC",
+      "country": "Australia"
+    }
+  ],
+  "EFA": [
+    {
+      "iata_code": "QE",
+      "icao_code": "EFA",
+      "airline_name": "Express Freighters Australia",
+      "call_sign": "QANTAS",
+      "country": "Australia"
+    }
+  ],
+  "FC": [
+    {
+      "iata_code": "FC",
+      "icao_code": "N/A",
+      "airline_name": "Link Airways",
+      "call_sign": "FLY CORP (Corporate)",
+      "country": "Australia"
+    }
+  ],
+  "HND": [
+    {
+      "iata_code": "OI",
+      "icao_code": "HND",
+      "airline_name": "Hinterland Aviation",
+      "call_sign": "HINTERLAND",
+      "country": "Australia"
+    }
+  ],
+  "FBT": [
+    {
+      "iata_code": "N/A",
+      "icao_code": "FBT",
+      "airline_name": "French Flying Club",
+      "call_sign": "FRENCH BAGEUTTE",
+      "country": "France"
+    },
+  ],
+  "JHA": [
+    {
+      "iata_code": "",
+      "icao_code": "JHA",
+      "airline_name": "Gee Hell",
+      "call_sign": "GEEHELL",
+      "country": "Germany"
+    }
+  ],
+  "TOC": [
+    {
+      "iata_code": "CG",
+      "icao_code": "TOC",
+      "airline_name": "Airlines of Papua New Guinea",
+      "call_sign": "BALUS",
+      "country": "Papua New Guinea"
+    }
+  ],
+  "CTV": [
+    {
+      "iata_code": "",
+      "icao_code": "CTV",
+      "airline_name": "CitiLink",
+      "call_sign": "Super Green",
+      "country": "Indonesia"
+    }
+  ]
 }
