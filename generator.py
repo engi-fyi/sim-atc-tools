@@ -129,14 +129,15 @@ def generate_single_page_data(module, request_url=None):
     if request_url is None:
         request_url = module["wikipedia_url"]
 
-    data = DataContainerDto()
-    page = requests.get(request_url)
-    print(f"'{request_url}' retrieved (status code: {page.status_code}).")
-
     headers = {
         "User-Agent": "sim-atc-crawler / 1.0 email=feedback@sim-atc.com"
     }
-    soup = BeautifulSoup(page.content, BS4_PARSER_TYPE, headers=headers)
+    data = DataContainerDto()
+    page = requests.get(request_url, headers=headers)
+    print(f"'{request_url}' retrieved (status code: {page.status_code}).")
+
+    
+    soup = BeautifulSoup(page.content, BS4_PARSER_TYPE)
     table = soup.find("table", class_="wikitable")
     table_body = table.find("tbody")
     rows = table_body.find_all("tr")
