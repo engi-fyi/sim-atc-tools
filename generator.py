@@ -133,7 +133,10 @@ def generate_single_page_data(module, request_url=None):
     page = requests.get(request_url)
     print(f"'{request_url}' retrieved (status code: {page.status_code}).")
 
-    soup = BeautifulSoup(page.content, BS4_PARSER_TYPE)
+    headers = {
+        "User-Agent": "sim-atc-crawler / 1.0 email=feedback@sim-atc.com"
+    }
+    soup = BeautifulSoup(page.content, BS4_PARSER_TYPE, headers=headers)
     table = soup.find("table", class_="wikitable")
     table_body = table.find("tbody")
     rows = table_body.find_all("tr")
