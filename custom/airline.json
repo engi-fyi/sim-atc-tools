@@ -241,5 +241,32 @@
       "call_sign": "Super Green",
       "country": "Indonesia"
     }
+  ],
+  "HWL": [
+    {
+      "iata_code": "",
+      "icao_code": "HWL",
+      "airline_name": "Virtual Hangzhou Airlines",
+      "call_sign": "Westlake",
+      "country": "China"
+    }
+  ],
+  "HAZ": [
+    {
+      "iata_code": "",
+      "icao_code": "HAZ",
+      "airline_name": "Virtual Hangzhou Airlines",
+      "call_sign": "Hangzhou (pronounced hang-chow)",
+      "country": "China"
+    }
+  ],
+  "HZC": [
+    {
+      "iata_code": "",
+      "icao_code": "HZC",
+      "airline_name": "Virtual Hangzhou Airlines",
+      "call_sign": "Hangzhou Cargo (pronounced hang-chow)",
+      "country": "China"
+    }
   ]
 }
